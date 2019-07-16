@@ -12,7 +12,6 @@ class EarthQuakeListView extends StatefulWidget{
 }
 // step2
 class EarthQuakeListViewState extends State<EarthQuakeListView>{
-
   //自定义一个数据集合
   List earthInfoList = [];
 
@@ -21,7 +20,7 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
     print("on initState...");
     for (int i = 0; i < 20; i++) {
       EarthQuakeInfo quakeInfo=new EarthQuakeInfo();
-      quakeInfo.degree=0.98;
+      quakeInfo.degree=0.98+i;
       quakeInfo.depths=10;
       quakeInfo.happenTime="2019-08-12 12:23:34";
       quakeInfo.happenPlace="test";
@@ -29,25 +28,22 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
     }
     super.initState();
   }
+  //
+  void doNavigator() {
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      return new SecNextPage();
+    }));
+  }
   //构造item
   Widget buildRow(EarthQuakeInfo earthQuakeInfo) {
-
     return new ListTile(
-      onLongPress:(){
-        print("on Pressed...");
-        // 实现页面跳转的函数
-
-      },
       //on click
       onTap: (){
-        Navigator
-            .of(context)
-            .push(new MaterialPageRoute(builder: (context) {
-          return new SecNextPage();
-        }));
+        //跳转
+        doNavigator();
       },
-      title: new Text("地震强度:"+  (earthQuakeInfo.degree.toString()),
-          style: TextStyle(color: Colors.teal,fontSize: 15 )),
+      title: new Text("地震强度:"+ earthQuakeInfo.degree.toString(),
+          style: TextStyle(color: Colors.green,fontSize: 15 )),
 
       subtitle: new Text("发生时间：" +earthQuakeInfo.happenTime,
           style: TextStyle(color: Colors.grey,fontSize: 13 )),
