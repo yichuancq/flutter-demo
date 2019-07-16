@@ -37,17 +37,38 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
   //构造item
   Widget buildRow(EarthQuakeInfo earthQuakeInfo) {
     return new ListTile(
+      leading:
+        ClipRRect(
+        // borderRadius: BorderRadius.circular(40.0),
+         borderRadius: BorderRadius.circular(4.0),
+        child:
+          Image.asset("assets/head1.png",width: 60, height: 70, fit: BoxFit.fill,
+        ),
+      ),
       //on click
       onTap: (){
         //跳转
         doNavigator();
       },
-      title: new Text("地震强度:"+ earthQuakeInfo.degree.toString(),
-          style: TextStyle(color: Colors.green,fontSize: 15 )),
-
-      subtitle: new Text("发生时间：" +earthQuakeInfo.happenTime,
-          style: TextStyle(color: Colors.grey,fontSize: 13 )),
-      trailing: new Icon(Icons.navigate_next)
+      title: new Text("地震强度:"+ earthQuakeInfo.degree.toString(), style: TextStyle(color: Colors.green,fontSize: 15 )),
+      subtitle: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+           children: <Widget>[
+             Text("震级:"+earthQuakeInfo.depths.toString(),style: TextStyle(color:Colors.orange, fontSize: 15.0)),
+             Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
+             Text("发生时间:" +earthQuakeInfo.happenTime, style:TextStyle(color: Colors.grey,fontSize: 13)),
+           ],
+        ),
+      //
+     trailing: new Column(
+        children: <Widget>[
+          Expanded(
+            child: new Container(
+              child: new Icon(Icons.navigate_next)
+            ),
+      ),
+      ]),
     );
 
   }
@@ -57,7 +78,6 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
     return GestureDetector(
       child: Padding(
         padding: EdgeInsets.all(5.0),
-        //child: Text("行号：$i"),
         child:buildRow(quakeInfo)
       ),
     );

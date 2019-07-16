@@ -33,27 +33,17 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
       return new SecNextPage();
     }));
   }
-  //构造数据
-  getRowData(int position) {
-    EarthQuakeInfo quakeInfo=earthInfoList[position];
-    return GestureDetector(
-      child: Padding(
-          //padding: EdgeInsets.all(5.0),
-        child:buildRows(quakeInfo)
-
-      ),
-    );
-  }
+  //
   buildRows(EarthQuakeInfo earthQuakeInfo) {
     var row = Container(
-      margin: EdgeInsets.all(4.0),
-//      padding: EdgeInsets.all(5.0),
+      margin: EdgeInsets.all(10.0),
       child: Row(
         children: <Widget>[
           ClipRRect(
             // borderRadius: BorderRadius.circular(40.0),
               borderRadius: BorderRadius.circular(4.0),
-              child: Image.asset("assets/head1.png",width: 80, height: 80,
+              child:
+                 Image.asset("assets/head1.png",width: 80, height: 80,
                 fit: BoxFit.fill,
               ),
           ),
@@ -63,46 +53,19 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                 margin: EdgeInsets.only(left: 8.0),
 //            width: 200,
               height: 80.0,
-
                 child: Column(
 //                  // 从左到右
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-//                      Expanded(
-//                        child:
-//                        new Container(
-//                          child: new Row(
-//                            mainAxisAlignment:  MainAxisAlignment.start,
-//                            children: [
-//                              new Row(
-//                                // 对齐方式
-//                                  children: <Widget>[
-//                                    Text("震级:",style: TextStyle(color:Colors.orange,fontWeight: FontWeight.bold, fontSize: 15.0)),
-//                                    Text(earthQuakeInfo.degree.toString()),
-//                                  ]
-//                              ),
-//                             // margin: EdgeInsets.only(left: 8.0),
-//                              new Row(
-//                                // 对齐方式
-//                                  children: <Widget>[
-//                                    Text("深度:",style: TextStyle(color:Colors.green,fontWeight: FontWeight.bold, fontSize: 15.0)),
-//                                    Text(earthQuakeInfo.depths.toString()),
-//                                  ]
-//                              )],
-//                          ),
-//                        ),
-//                      ),
-
-                      //内嵌布局
+                      //内
                       Expanded(
 
                         child: Container(
                           child: new Row(
                             // 对齐方式
                               mainAxisAlignment: MainAxisAlignment.start,
-                              //mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Text("震级：",style: TextStyle(color:Colors.orange,fontWeight: FontWeight.bold, fontSize: 17.0)),
+                                Text("震级：",style: TextStyle(color:Colors.orange,fontWeight: FontWeight.normal, fontSize: 15.0)),
                                 Text(earthQuakeInfo.degree.toString()),
                               ]
                           ),
@@ -119,7 +82,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                             // 从左到右
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Text("深度：",style: TextStyle(color:Colors.green, fontWeight: FontWeight.bold, fontSize: 17.0)),
+                                Text("深度：",style: TextStyle(color:Colors.green, fontWeight: FontWeight.normal, fontSize: 15.0)),
                                 Text(earthQuakeInfo.depths.toString()),
 
                               ]
@@ -127,9 +90,8 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                         ),
                       ),
 
-                      Text("发生地点:"+earthQuakeInfo.happenPlace),
-                      Text("发生时间:"+earthQuakeInfo.happenTime),
-
+                      Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
+                      Text("发生时间:"+earthQuakeInfo.happenTime,style:TextStyle(color: Colors.grey,fontSize: 13 )),
                     ]
                 )
             ),
@@ -138,7 +100,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
       ),
     );
     return Card(
-
       child: row,
     );
   }
@@ -182,3 +143,27 @@ class SecNextPage extends StatelessWidget {
     );
   }
 }
+//                      Expanded(
+//                        child:
+//                        new Container(
+//                          child: new Row(
+//                            mainAxisAlignment:  MainAxisAlignment.start,
+//                            children: [
+//                              new Row(
+//                                // 对齐方式
+//                                  children: <Widget>[
+//                                    Text("震级:",style: TextStyle(color:Colors.orange,fontWeight: FontWeight.bold, fontSize: 15.0)),
+//                                    Text(earthQuakeInfo.degree.toString()),
+//                                  ]
+//                              ),
+//                             // margin: EdgeInsets.only(left: 8.0),
+//                              new Row(
+//                                // 对齐方式
+//                                  children: <Widget>[
+//                                    Text("深度:",style: TextStyle(color:Colors.green,fontWeight: FontWeight.bold, fontSize: 15.0)),
+//                                    Text(earthQuakeInfo.depths.toString()),
+//                                  ]
+//                              )],
+//                          ),
+//                        ),
+//                      ),

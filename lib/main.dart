@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:untitled/listview/RandomWords.dart';
-//import 'listview/earth_quake_listview.dart';
+import 'listview/earth_quake_listview.dart';
 import 'listview/earth_quake_card_listview.dart';
 import 'utils/const.dart';
 // main 为程序的入口 通过 runApp() 方法执行我们的 class
@@ -13,9 +13,11 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Demo',    // 设置 App 的标题
       theme: Constants.lightTheme,
+//      theme: Constants.darkTheme,
      // theme: new ThemeData(primaryColor: Colors.teal), //设置主题颜色
       debugShowCheckedModeBanner: false, // 去掉DEBUG 右上角 设置这一属性即可
-      home: EarthQuakeCardListView(),
+//      home: EarthQuakeCardListView(),
+      home: EarthQuakeListView(),
       //home: new RandomWords()
       // home: new TabBarDemo(),
     );
