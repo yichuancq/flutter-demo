@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:flutter/material.dart';
-
 class EarthQuakeListView extends StatefulWidget{
   //
   @override
@@ -19,8 +18,8 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
 
   @override
   void initState() {
-    super.initState();
-    for (int i = 0; i < 30; i++) {
+    print("on initState...");
+    for (int i = 0; i < 20; i++) {
       EarthQuakeInfo quakeInfo=new EarthQuakeInfo();
       quakeInfo.degree=0.98;
       quakeInfo.depths=10;
@@ -28,6 +27,7 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
       quakeInfo.happenPlace="test";
       earthInfoList.add(quakeInfo);
     }
+    super.initState();
   }
   //构造item
   Widget buildRow(EarthQuakeInfo earthQuakeInfo) {
@@ -86,12 +86,8 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
 
 // 实现已保存数据的页面
 class SecNextPage extends StatelessWidget {
-  // 声明类的参数
-  //SavedPage();
-  // 渲染一个列表
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
       appBar: new AppBar(
         title: Text("详情查看",style: TextStyle(fontSize: 15)),
