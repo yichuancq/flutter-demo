@@ -16,7 +16,8 @@ class MyDemoState extends State<MyDemo> {
   buildBodyPage() {
     if(index==0) {
       //return new TabBarDemo();
-      return new EarthQuakeListView();
+      return new EarthQuakeCardListView();
+      // return new EarthQuakeListView();
     }
     if(index==1) {
      return new MeListView();

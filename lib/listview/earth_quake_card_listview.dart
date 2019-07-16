@@ -28,11 +28,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
     }
     super.initState();
   }
-  void doNavigator() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new SecNextPage();
-    }));
-  }
   //
   buildRows(EarthQuakeInfo earthQuakeInfo) {
     var row = Container(
@@ -121,26 +116,14 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
     return Scaffold(
       //page bg color
       backgroundColor: Colors.grey,
-//      appBar: AppBar(
-//        title: Text("地震消息显示",style: TextStyle(fontSize: 15)),
-//      ),
+      appBar: AppBar(
+        title: Text("地震消息显示",style: TextStyle(fontSize: 15)),
+      ),
 
       body: Center(
         //条目
         child: viewBuild(),
       ),
-    );
-  }
-}
-
-// 实现已保存数据的页面
-class SecNextPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-//      appBar: new AppBar(
-//        title: Text("详情查看",style: TextStyle(fontSize: 15)),
-//      ),
     );
   }
 }
