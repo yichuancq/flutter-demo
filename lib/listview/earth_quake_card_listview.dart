@@ -36,7 +36,8 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
   //
   buildRows(EarthQuakeInfo earthQuakeInfo) {
     var row = Container(
-      margin: EdgeInsets.all(10.0),
+//      padding: EdgeInsets.only(left: 10,right: 10),
+      margin: EdgeInsets.all(5.0),
       child: Row(
         children: <Widget>[
           ClipRRect(
@@ -69,8 +70,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                                 Text(earthQuakeInfo.degree.toString()),
                               ]
                           ),
-
-
                         ),
                       ),
                       //内嵌布局
@@ -120,9 +119,11 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("地震消息显示",style: TextStyle(fontSize: 15)),
-      ),
+      //page bg color
+      backgroundColor: Colors.grey,
+//      appBar: AppBar(
+//        title: Text("地震消息显示",style: TextStyle(fontSize: 15)),
+//      ),
 
       body: Center(
         //条目
@@ -137,9 +138,9 @@ class SecNextPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: Text("详情查看",style: TextStyle(fontSize: 15)),
-      ),
+//      appBar: new AppBar(
+//        title: Text("详情查看",style: TextStyle(fontSize: 15)),
+//      ),
     );
   }
 }

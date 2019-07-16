@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/tabbar/BottomNavigationBarTest.dart';
+import 'package:untitled/tabbar/TabBarDemoTest.dart';
 //import 'package:untitled/listview/RandomWords.dart';
 import 'listview/earth_quake_listview.dart';
 import 'listview/earth_quake_card_listview.dart';
@@ -12,14 +14,15 @@ class MyApp extends StatelessWidget {
     // 创建一个 material 风格的 app
     return new MaterialApp(
       title: 'Demo',    // 设置 App 的标题
-      theme: Constants.lightTheme,
+//      theme: Constants.lightTheme,
 //      theme: Constants.darkTheme,
-     // theme: new ThemeData(primaryColor: Colors.teal), //设置主题颜色
+      theme: new ThemeData(primaryColor: Colors.green), //设置主题颜色
       debugShowCheckedModeBanner: false, // 去掉DEBUG 右上角 设置这一属性即可
 //      home: EarthQuakeCardListView(),
-      home: EarthQuakeListView(),
+//      home: EarthQuakeListView(),
       //home: new RandomWords()
-      // home: new TabBarDemo(),
+//       home: new TabBarDemo(),
+       home: new MyDemo(),
     );
   }
 }

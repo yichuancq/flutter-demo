@@ -1,37 +1,39 @@
 import 'package:flutter/material.dart';
-class TabBarDemo extends StatelessWidget {
+import 'package:untitled/listview/earth_quake_card_listview.dart';
+import 'package:untitled/listview/earth_quake_listview.dart';
+class TabBarDemo extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new DemoState();
+  }
+}
+class DemoState extends State<TabBarDemo> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new DefaultTabController(
-        length: 4,
-        child: new Scaffold(
-          appBar: new AppBar(
-            bottom: new TabBar(
-              tabs: [
-                new Tab(text: '首页',icon: new Icon(Icons.home)),
-                new Tab(text: '订单',icon: new Icon(Icons.search)),
-                new Tab(text: '推荐',icon: new Icon(Icons.receipt)),
-                new Tab(text: '我',icon: new Icon(Icons.person))
-
-              ],
-
+      return new MaterialApp(
+        home: new DefaultTabController(
+          length: 3,
+          child: new Scaffold(
+            backgroundColor: Colors.white,
+            appBar: new AppBar(
+              backgroundColor: Colors.green,
+              bottom: new TabBar(
+                tabs: [
+                  new Tab(text: '最近24小时'),
+                  new Tab(text: '最近48小时'),
+                  new Tab(text: '专题')
+                ],
+              ),
             ),
-
-            //title: new Text('Tabs Demo'),
-          ),
-
-
-          body: new TabBarView(
-            children: [
-              new Icon(Icons.home) ,
-              new Icon(Icons.search),
-              new Icon(Icons.receipt),
-              new Icon(Icons.person),
-            ],
+            body: new TabBarView(
+              children: [
+                new EarthQuakeCardListView(),
+                new EarthQuakeListView(),
+                new Icon(Icons.person),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 }

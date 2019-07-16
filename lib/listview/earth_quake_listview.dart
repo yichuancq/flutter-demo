@@ -42,7 +42,7 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
         // borderRadius: BorderRadius.circular(40.0),
          borderRadius: BorderRadius.circular(4.0),
         child:
-          Image.asset("assets/head1.png",width: 60, height: 70, fit: BoxFit.fill,
+          Image.asset("assets/head1.png",width: 50, height: 50, fit: BoxFit.fill
         ),
       ),
       //on click
@@ -57,7 +57,7 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
            children: <Widget>[
              Text("震级:"+earthQuakeInfo.depths.toString(),style: TextStyle(color:Colors.orange, fontSize: 15.0)),
              Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
-             Text("发生时间:" +earthQuakeInfo.happenTime, style:TextStyle(color: Colors.grey,fontSize: 13)),
+             Text("发生时间:" +earthQuakeInfo.happenTime, style:TextStyle(color: Colors.grey,fontSize: 13))
            ],
         ),
       //
@@ -85,6 +85,7 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
   // 实现构建方法
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("地震消息显示",style: TextStyle(fontSize: 15)),
@@ -105,6 +106,7 @@ class SecNextPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: Colors.grey,
       appBar: new AppBar(
         title: Text("详情查看",style: TextStyle(fontSize: 15)),
       ),
