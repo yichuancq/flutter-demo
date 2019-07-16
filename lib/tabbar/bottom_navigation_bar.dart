@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/listview/earth_quake_card_listview.dart';
 import 'package:untitled/listview/earth_quake_listview.dart';
+import 'package:untitled/listview/me.dart';
 
 import 'TabBarDemoTest.dart';
 class MyDemo extends StatefulWidget {
@@ -18,7 +19,7 @@ class MyDemoState extends State<MyDemo> {
       return new EarthQuakeListView();
     }
     if(index==1) {
-     // return new Icon(Icons.person);
+     return new MeListView();
     }
   }
   @override

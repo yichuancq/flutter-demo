@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/tabbar/BottomNavigationBarTest.dart';
+import 'package:untitled/tabbar/bottom_navigation_bar.dart';
 import 'package:untitled/tabbar/TabBarDemoTest.dart';
 //import 'package:untitled/listview/RandomWords.dart';
 import 'listview/earth_quake_listview.dart';
