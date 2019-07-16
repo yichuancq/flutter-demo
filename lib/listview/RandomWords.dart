@@ -94,8 +94,7 @@ class SavedPage extends StatelessWidget {
           ),
         );
       }),
-    )
-        .toList();
+    ).toList();
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Saved Words"),
