@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/listview/earth_quake_card_listview.dart';
-import 'package:untitled/listview/earth_quake_listview.dart';
-import 'package:untitled/listview/me.dart';
-
-import 'TabBarDemoTest.dart';
+import 'package:untitled/me/me.dart';
+import 'package:untitled/topic/topic.dart';
 class MyDemo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -20,7 +18,10 @@ class MyDemoState extends State<MyDemo> {
       // return new EarthQuakeListView();
     }
     if(index==1) {
-     return new MeListView();
+     return new TopicListView();
+    }
+    if(index==2) {
+      return new MeListView();
     }
   }
   @override
@@ -40,6 +41,10 @@ class MyDemoState extends State<MyDemo> {
           new BottomNavigationBarItem(
             icon: new Icon(Icons.message),
             title: new Text("消息",style: TextStyle(color: Colors.grey)),
+          ),
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.toys),
+            title: new Text("专题",style: TextStyle(color: Colors.grey)),
           ),
           new BottomNavigationBarItem(
             icon: new Icon(Icons.person),
