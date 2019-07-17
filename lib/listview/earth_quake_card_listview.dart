@@ -19,11 +19,9 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
   //自定义一个数据集合
   List earthInfoList = [];
 
-
   //AutomaticKeepAliveClientMixin 是一个抽象状态，使用也很简单，
   //我们只需要用我们自己的状态继承这个抽象状态，并实现 wantKeepAlive 方法即可。
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
 
@@ -90,7 +88,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
             // borderRadius: BorderRadius.circular(40.0),
               borderRadius: BorderRadius.circular(4.0),
               child:
-                 Image.asset("assets/head1.png",width: 80, height: 80,
+                 Image.asset("assets/image/weave.png",width: 50, height: 50,
                 fit: BoxFit.fill,
               ),
           ),

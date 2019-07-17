@@ -55,6 +55,8 @@ flutter:
     #- images/head1.png
     - head1.png
 #    - earth_info.json
+    - assets/image/weave.png
+    - assets/image/head.png
     - data/json/earth_info.json
   # assets:
   #  - images/a_dot_burr.jpeg
