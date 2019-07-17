@@ -33,7 +33,8 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
   buildRows(final int position) {
     EarthQuakeInfo earthQuakeInfo=  earthInfoList[position];
     var row = Container(
-      margin: EdgeInsets.all(5.0),
+
+      margin: EdgeInsets.all(4.0),
       child: Row(
         children: <Widget>[
           ClipRRect(
@@ -46,17 +47,20 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
           ),
 
           Expanded(
+            //设置弹性系数
+            flex: 10,
             child: Container(
-                margin: EdgeInsets.only(left: 10.0),
-//            width: 200,
-              height: 80.0,
+                margin: EdgeInsets.only(left: 4.0,right: 4.0),
+            width: 200,
+//            color: Colors.red,
+              height: 85.0,
                 child: Column(
 //                  // 从左到右
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       //内
                       Expanded(
-
+                        flex: 1,
                         child: Container(
                           child: new Row(
                             // 对齐方式
@@ -70,6 +74,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                       ),
                       //内嵌布局
                       Expanded(
+                        flex: 1,
                         child: Container(
                           child: Row(
                             // 对齐方式
@@ -84,12 +89,57 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                           ),
                         ),
                       ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          child: Row(
+                            // 对齐方式
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // 从左到右
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text("发生时间:"+earthQuakeInfo.happenTime,style:TextStyle(color: Colors.grey,fontSize: 13 )),
 
-                      Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
-                      Text("发生时间:"+earthQuakeInfo.happenTime,style:TextStyle(color: Colors.grey,fontSize: 13 )),
+                              ]
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          child: Row(
+                            // 对齐方式
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // 从左到右
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
+
+                              ]
+                          ),
+                        ),
+                      ),
+//                      Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
+                     // Text("发生时间:"+earthQuakeInfo.happenTime,style:TextStyle(color: Colors.grey,fontSize: 13 )),
                     ]
                 )
             ),
+          ),
+          // 向右到箭头
+          Expanded(
+            //设置弹性系数
+            flex: 1,
+            child: Container(
+//              color: Colors.green,
+              width:10,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  new Icon(Icons.navigate_next)
+                ],
+              ),
+            ),
+             // child: new Icon(Icons.navigate_next)
           ),
         ],
       ),
