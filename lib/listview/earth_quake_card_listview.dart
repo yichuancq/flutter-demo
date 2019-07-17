@@ -1,8 +1,10 @@
 //地震消息listView
 import 'package:flutter/cupertino.dart';
+import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:flutter/material.dart';
 import 'earth_quake_listview.dart';
+import 'package:untitled/service/earth_quake_service.dart';
 class EarthQuakeCardListView extends StatefulWidget{
   //
   @override
@@ -12,13 +14,38 @@ class EarthQuakeCardListView extends StatefulWidget{
   }
 }
 // step2
-class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
+class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
+    with AutomaticKeepAliveClientMixin {
   //自定义一个数据集合
   List earthInfoList = [];
 
+
+  //AutomaticKeepAliveClientMixin 是一个抽象状态，使用也很简单，
+  //我们只需要用我们自己的状态继承这个抽象状态，并实现 wantKeepAlive 方法即可。
   @override
-  void initState() {
-    print("on initState...");
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
+
+  void loadData() async {
+    print("loadData...");
+    EarthQuakeInfoDTO dto=  await decodeEarthQuakeInfoDTO();
+    for(Shuju data in dto.shuju) {
+      EarthQuakeInfo quakeInfo=new EarthQuakeInfo();
+      quakeInfo.degree= double.parse(data.m);
+      quakeInfo.depths=data.ePIDEPTH;
+      quakeInfo.happenTime=data.oTIME;
+      quakeInfo.happenPlace=data.lOCATIONC;
+      print( data.toString());
+      earthInfoList.add(quakeInfo);
+    }
+    //更新列表
+    setState(() {
+      //状态
+    });
+  }
+
+  void  loadList() {
     for (int i = 0; i < 20; i++) {
       EarthQuakeInfo quakeInfo=new EarthQuakeInfo();
       quakeInfo.degree=0.98+i;
@@ -27,9 +54,31 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
       quakeInfo.happenPlace="test";
       earthInfoList.add(quakeInfo);
     }
+
+  }
+  @override
+  void dispose() {
+    print("on dispose...");
+    earthInfoList.clear();
+    super.dispose();
+  }
+  @override
+  void initState() {
+    print("on initState...");
+    loadData();
     super.initState();
+
   }
   //
+  //根据强度自定义颜色
+  Widget myDegreeText(final double degree) {
+    if(degree>=6.0) {
+      //double -> String
+      return new Text(degree.toStringAsFixed(1), style: TextStyle(color: Colors.red,fontSize: 15 ));
+    }
+    return new Text(degree.toStringAsFixed(1), style: TextStyle(color: Colors.black87,fontSize: 15 ));
+  }
+
   buildRows(final int position) {
     EarthQuakeInfo earthQuakeInfo=  earthInfoList[position];
     var row = Container(
@@ -67,7 +116,9 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Text("震级：",style: TextStyle(color:Colors.orange,fontWeight: FontWeight.normal, fontSize: 15.0)),
-                                Text(earthQuakeInfo.degree.toString()),
+                                myDegreeText(earthQuakeInfo.degree),
+
+                                //Text(earthQuakeInfo.degree.toString()),
                               ]
                           ),
                         ),
@@ -93,8 +144,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                         flex: 1,
                         child: Container(
                           child: Row(
-                            // 对齐方式
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             // 从左到右
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
@@ -108,9 +157,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
                         flex: 1,
                         child: Container(
                           child: Row(
-                            // 对齐方式
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            // 从左到右
+                              // 从左到右
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
@@ -160,26 +207,29 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
       child: row,
     );
   }
-
   //
   void doNavigator() {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new SecNextPage();
     }));
   }
-
-
   //实现构建方法
   viewBuild() {
-    if (earthInfoList.length != 0) {
+
+    if (earthInfoList.length == 0) {
+      // 加载菊花
+      return CupertinoActivityIndicator();
+    }else{
+
+      print("加载数据了。。。");
+      print(earthInfoList.length);
+      //
       return ListView.builder(
+          //item 的数量
           itemCount: earthInfoList.length,
           itemBuilder: (BuildContext context, int position) {
             return buildRows(position);
           });
-    } else {
-      // 加载菊花
-      return CupertinoActivityIndicator();
     }
   }
 
@@ -198,4 +248,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
       ),
     );
   }
+
+
 }
