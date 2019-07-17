@@ -1,8 +1,10 @@
 //地震消息listView
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:flutter/material.dart';
-import 'earth_quake_listview.dart';
 class EarthQuakeCardListView extends StatefulWidget{
   //
   @override
@@ -30,26 +32,25 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
     super.initState();
   }
   //
-  buildRows(final int position) {
-    EarthQuakeInfo earthQuakeInfo=  earthInfoList[position];
+  buildRows(EarthQuakeInfo earthQuakeInfo) {
     var row = Container(
       margin: EdgeInsets.all(5.0),
       child: Row(
         children: <Widget>[
           ClipRRect(
             // borderRadius: BorderRadius.circular(40.0),
-              borderRadius: BorderRadius.circular(4.0),
-              child:
-                 Image.asset("assets/head1.png",width: 80, height: 80,
-                fit: BoxFit.fill,
-              ),
+            borderRadius: BorderRadius.circular(4.0),
+            child:
+            Image.asset("assets/head1.png",width: 80, height: 80,
+              fit: BoxFit.fill,
+            ),
           ),
 
           Expanded(
             child: Container(
                 margin: EdgeInsets.only(left: 10.0),
 //            width: 200,
-              height: 80.0,
+                height: 80.0,
                 child: Column(
 //                  // 从左到右
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,38 +95,17 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
         ],
       ),
     );
-
-    return GestureDetector(
-      onTap: () {
-        //监听点击事件
-        print("click item index=$position");
-        //跳转到详情页面
-        doNavigator();
-      },
-      child: new Card(
-        child: row,
-      ),
-    );
     return Card(
       child: row,
     );
   }
-
-  //
-  void doNavigator() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new SecNextPage();
-    }));
-  }
-
-
   //实现构建方法
   viewBuild() {
     if (earthInfoList.length != 0) {
       return ListView.builder(
           itemCount: earthInfoList.length,
           itemBuilder: (BuildContext context, int position) {
-            return buildRows(position);
+            return buildRows(earthInfoList[position]);
           });
     } else {
       // 加载菊花
@@ -135,17 +115,40 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //page bg color
-      backgroundColor: Colors.grey,
-      appBar: AppBar(
-        title: Text("地震消息显示",style: TextStyle(fontSize: 15)),
-      ),
+    EarthQuakeInfoDTO _earthQuakeInfoDTO;
+    return new FutureBuilder(
+      future: DefaultAssetBundle.of(context).loadString("data/json/earth_info.json"),
 
-      body: Center(
-        //条目
-        child: viewBuild(),
-      ),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final jsonMap = json.decode(snapshot.data.toString());
+          //将json 字符串解析为 EarthQuakeInfoDTO 对象
+          _earthQuakeInfoDTO = EarthQuakeInfoDTO.fromJson(jsonMap);
+          return new ListView.builder(
+            padding: EdgeInsets.all(1.0),
+            itemCount: _earthQuakeInfoDTO.shuju.length,
+            itemBuilder: (BuildContext context, int index) {
+              return new Card(
+
+                //color: Colors.grey,
+                margin: EdgeInsets.all(3),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    //new Text(earthQuakeInfoDTO.num.toString()),
+                    new Text(_earthQuakeInfoDTO.shuju[index].m),
+                    new Text(_earthQuakeInfoDTO.shuju[index].ePIDEPTH.toString()),
+                    new Text(_earthQuakeInfoDTO.shuju[index].lOCATIONC),
+                    // new Text("Height: ${data[index]["height"]}"),
+                    //new Text("Gender: ${data[index]["gender"]}"),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+        return new CircularProgressIndicator();
+      },
     );
   }
 }
