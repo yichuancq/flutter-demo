@@ -31,7 +31,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
   //
   buildRows(EarthQuakeInfo earthQuakeInfo) {
     var row = Container(
-//      padding: EdgeInsets.only(left: 10,right: 10),
       margin: EdgeInsets.all(5.0),
       child: Row(
         children: <Widget>[
@@ -46,7 +45,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>{
 
           Expanded(
             child: Container(
-                margin: EdgeInsets.only(left: 8.0),
+                margin: EdgeInsets.only(left: 10.0),
 //            width: 200,
               height: 80.0,
                 child: Column(

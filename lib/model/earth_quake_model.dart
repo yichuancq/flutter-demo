@@ -16,22 +16,9 @@ class EarthQuakeInfo{
     this.happenTime,
     this.happenPlace
   });
-  //
-  //  EarthQuakeInfo(this.degree, this.depths, this.happenTime,
-//      this.happenPlace);
-
 
   @override
   String toString() {
     return 'EarthQuakeInfo{degree: $degree, depths: $depths, happenTime: $happenTime, happenPlace: $happenPlace}';
-  }
-
-  //
-  factory EarthQuakeInfo.fromJson(Map<String, dynamic> json) {
-    return EarthQuakeInfo(
-        degree: json['degree'],
-        depths: int.parse(json['depths']),
-        happenTime: json['happen_time'],
-        happenPlace: json['happen_place']);
   }
 }

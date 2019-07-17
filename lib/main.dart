@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/tabbar/bottom_navigation_bar.dart';
-import 'package:untitled/tabbar/TabBarDemoTest.dart';
-//import 'package:untitled/listview/RandomWords.dart';
-import 'listview/earth_quake_listview.dart';
-import 'listview/earth_quake_card_listview.dart';
-import 'utils/const.dart';
+//import 'utils/const.dart';
 // main 为程序的入口 通过 runApp() 方法执行我们的 class
 void main() => runApp(new MyApp());
 /* 创建一个无状态的 Widget */
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     // 创建一个 material 风格的 app

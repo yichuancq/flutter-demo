@@ -1,12 +1,15 @@
 //地震消息listView
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
+import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/service/earth_quake_service.dart';
+
 class EarthQuakeListView extends StatefulWidget{
   //
   @override
   State<StatefulWidget> createState() {
-    //
     return new EarthQuakeListViewState();
   }
 }
@@ -18,15 +21,23 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
   @override
   void initState() {
     print("on initState...");
-    for (int i = 0; i < 20; i++) {
+    loadData();
+    super.initState();
+  }
+  //
+  void loadData() async {
+    print("loadData...");
+    EarthQuakeInfoDTO dto=  await decodeEarthQuakeInfoDTO();
+    for(Shuju data in dto.shuju) {
       EarthQuakeInfo quakeInfo=new EarthQuakeInfo();
-      quakeInfo.degree=0.98+i;
-      quakeInfo.depths=10;
-      quakeInfo.happenTime="2019-08-12 12:23:34";
-      quakeInfo.happenPlace="test";
+      quakeInfo.degree= double.parse(data.m);
+      quakeInfo.depths=data.ePIDEPTH;
+      quakeInfo.happenTime=data.oTIME;
+      quakeInfo.happenPlace=data.lOCATIONC;
+      print( data.toString());
       earthInfoList.add(quakeInfo);
     }
-    super.initState();
+    //viewBuild();
   }
   //
   void doNavigator() {
@@ -36,6 +47,16 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
   }
   //构造item
   Widget buildRow(EarthQuakeInfo earthQuakeInfo) {
+
+    //根据强度自定义颜色
+    Widget myDegreeText(final double degree) {
+      if(degree>=6.0) {
+        //double -> String
+        return new Text("震级(M):"+ degree.toStringAsFixed(1), style: TextStyle(color: Colors.red,fontSize: 15 ));
+      }
+      return new Text("震级(M):"+ degree.toStringAsFixed(1), style: TextStyle(color: Colors.green,fontSize: 15 ));
+    }
+
     return new ListTile(
       leading:
         ClipRRect(
@@ -50,13 +71,14 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
         //跳转
         doNavigator();
       },
-      title: new Text("地震强度:"+ earthQuakeInfo.degree.toString(), style: TextStyle(color: Colors.green,fontSize: 15 )),
+
+      title: myDegreeText(earthQuakeInfo.degree),// 自定义样式
       subtitle: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
            children: <Widget>[
-             Text("震级:"+earthQuakeInfo.depths.toString(),style: TextStyle(color:Colors.orange, fontSize: 15.0)),
-             Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
+             Text("深度(KM):"+earthQuakeInfo.depths.toString(),style: TextStyle(color:Colors.black87, fontSize: 13.0)),
+             Text("参考地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
              Text("发生时间:" +earthQuakeInfo.happenTime, style:TextStyle(color: Colors.grey,fontSize: 13))
            ],
         ),
@@ -82,21 +104,37 @@ class EarthQuakeListViewState extends State<EarthQuakeListView>{
       ),
     );
   }
+  //实现构建方法
+  viewBuild() {
+    if (earthInfoList.length != 0) {
+      return ListView.builder(
+          itemCount: earthInfoList.length,
+          itemBuilder: (BuildContext context, int position) {
+            return getRowData(position);
+          });
+    } else {
+      //加载菊花
+      return new Container(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           children: <Widget>[
+             //加载菊花
+             new CupertinoActivityIndicator()
+           ],
+           // new CupertinoActivityIndicator()
+        ),
+      );
+    }
+  }
   // 实现构建方法
   @override
   Widget build(BuildContext context) {
-
+    //loadData();
     return Scaffold(
       appBar: AppBar(
         title: Text("地震消息显示",style: TextStyle(fontSize: 15)),
       ),
-      body: ListView.builder(
-        //条目
-        itemCount: earthInfoList.length,
-        itemBuilder: (BuildContext context, int position) {
-          return getRowData(position);
-        },
-      ),
+        body: viewBuild(),
     );
   }
 }
