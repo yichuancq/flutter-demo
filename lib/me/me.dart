@@ -7,7 +7,6 @@ import 'package:flutter/rendering.dart';
 class MeListView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return new MeListViewState();
   }
 }

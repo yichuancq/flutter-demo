@@ -18,7 +18,6 @@ class MyDemoState extends State<MyDemo> {
     if (index == 0) {
       //return new TabBarDemo();
       return new EarthQuakeCardListView();
-      // return new EarthQuakeListView();
     }
     if (index == 1) {
       return new TopicListView();

@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
-import 'package:untitled/service/earth_quake_service.dart';
+import 'package:untitled/utils/http_service.dart';
 import 'earth_quake_listview.dart';
-
 class EarthQuakeCardListView extends StatefulWidget {
   //
   @override
@@ -25,17 +24,15 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
   //我们只需要用我们自己的状态继承这个抽象状态，并实现 wantKeepAlive 方法即可。
   @override
   bool get wantKeepAlive => true;
-
+  ///异步加载网络数据
   void loadData() async {
-    print("loadData...");
-    EarthQuakeInfoDTO dto = await decodeEarthQuakeInfoDTO();
+    EarthQuakeInfoDTO dto = await getEarthInfoHttp();
     for (Shuju data in dto.shuju) {
       EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
       quakeInfo.degree = double.parse(data.m);
       quakeInfo.depths = data.ePIDEPTH;
       quakeInfo.happenTime = data.oTIME;
       quakeInfo.happenPlace = data.lOCATIONC;
-//      print(data.toString());
       earthInfoList.add(quakeInfo);
     }
     //更新列表
@@ -57,14 +54,14 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
 
   @override
   void dispose() {
-    print("on dispose...");
+//    print("on dispose...");
     earthInfoList.clear();
     super.dispose();
   }
 
   @override
   void initState() {
-    print("on initState...");
+//    print("on initState...");
     loadData();
     super.initState();
   }
@@ -237,7 +234,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       //page bg color
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        title: Text("地震消息显示", style: TextStyle(fontSize: 15)),
+        title: Text("最近48小时地震信息", style: TextStyle(fontSize: 15)),
       ),
 
       body: Center(
