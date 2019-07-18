@@ -51,11 +51,11 @@ class TopicListViewState extends State<TopicListView> {
         ],
       ),
       //
-//      trailing: new Column(children: <Widget>[
-//        Expanded(
-//          child: new Container(child: new Icon(Icons.navigate_next)),
-//        ),
-//      ]),
+      trailing: new Column(children: <Widget>[
+        Expanded(
+          child: new Container(child: new Icon(Icons.navigate_next)),
+        ),
+      ]),
     );
     /// 卡片布局
 //    return new Card(

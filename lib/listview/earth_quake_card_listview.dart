@@ -35,7 +35,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       quakeInfo.depths = data.ePIDEPTH;
       quakeInfo.happenTime = data.oTIME;
       quakeInfo.happenPlace = data.lOCATIONC;
-      print(data.toString());
+//      print(data.toString());
       earthInfoList.add(quakeInfo);
     }
     //更新列表

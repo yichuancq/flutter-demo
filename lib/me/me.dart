@@ -3,8 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-//command+option+L 格式化代码
-//me
+//个人中心界面
 class MeListView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -14,6 +13,9 @@ class MeListView extends StatefulWidget {
 }
 
 class MeListViewState extends State<MeListView> {
+  /// switch btn
+  bool _switchValue = false;
+
   Widget initView() {
     var container = Container(
       margin: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
@@ -266,7 +268,7 @@ class MeListViewState extends State<MeListView> {
         });
 
   }
-  bool _switchValue = false;
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/tabbar/bottom_navigation_bar.dart';
 import 'utils/const.dart';
-// main 为程序的入口 通过 runApp() 方法执行我们的 class
 void main() => runApp(new MyApp());
 
 /* 创建一个无状态的 Widget */
 class MyApp extends StatelessWidget {
-  //todo 输入法切换的快捷键 control+space
-  ////command+option+L 格式化代码
+  ///输入法切换的快捷键 control+space
+  ///command+option+L 格式化代码
   @override
   Widget build(BuildContext context) {
     // 创建一个 material 风格的 app
