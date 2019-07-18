@@ -17,28 +17,22 @@ class MeListViewState extends State<MeListView> {
 
   Widget initView() {
     var container = Container(
+      //外边距
       margin: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-      //margin: EdgeInsets.all(5.0),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            flex: 1,
             child: Container(
-//                color: Colors.white,
                 child: new Row(
               children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  // 头像
+                new Container(
+                  //头像距离左边和右边的外边距
+                  margin: EdgeInsets.only(left: 20.0, right: 20.0),
                   child: new Image.asset("assets/image/head.png",
                       width: 60, height: 60),
                 ),
-                Expanded(
-                  flex: 2,
-                  // 姓名
-                  child: new Text("yichuan"),
-                ),
+                new Text("yichuan"),
               ],
             )),
           ),
@@ -48,7 +42,6 @@ class MeListViewState extends State<MeListView> {
             child: Container(
               //内边距
               padding: new EdgeInsets.all(10.0),
-//              color: Colors.white,
               child: Column(
                 verticalDirection: VerticalDirection.down,
                 children: <Widget>[
@@ -58,7 +51,6 @@ class MeListViewState extends State<MeListView> {
                     children: <Column>[
                       new Column(
                         children: <Widget>[
-                          //new Icon(Icons.border_inner),
                           new IconButton(
                             icon: Icon(Icons.border_inner),
                             onPressed: () {
@@ -70,7 +62,6 @@ class MeListViewState extends State<MeListView> {
                       ),
                       new Column(
                         children: <Widget>[
-                          //new Icon(Icons.card_travel),
                           new IconButton(
                             icon: Icon(Icons.card_travel),
                             onPressed: () {
@@ -82,7 +73,6 @@ class MeListViewState extends State<MeListView> {
                       ),
                       new Column(
                         children: <Widget>[
-                          //new Icon(Icons.card_giftcard),
                           new IconButton(
                             icon: Icon(Icons.card_giftcard),
                             onPressed: () {
@@ -247,6 +237,7 @@ class MeListViewState extends State<MeListView> {
           );
         });
   }
+
   ///
   void infoDialog() {
     showCupertinoDialog(
@@ -265,9 +256,7 @@ class MeListViewState extends State<MeListView> {
             ],
           );
         });
-
   }
-
 
   @override
   Widget build(BuildContext context) {
