@@ -1,10 +1,11 @@
 //地震消息listView
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
-import 'package:flutter/material.dart';
-import 'earth_quake_listview.dart';
 import 'package:untitled/service/earth_quake_service.dart';
+
+import 'earth_quake_listview.dart';
 
 class EarthQuakeCardListView extends StatefulWidget {
   //
@@ -87,10 +88,9 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       child: Row(
         children: <Widget>[
           ClipRRect(
-            // borderRadius: BorderRadius.circular(40.0),
             borderRadius: BorderRadius.circular(4.0),
             child: Image.asset(
-              "assets/image/weave.png",
+              "assets/image/map.png",
               width: 40,
               height: 40,
               fit: BoxFit.fill,
@@ -123,8 +123,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
                                         fontWeight: FontWeight.normal,
                                         fontSize: 15.0)),
                                 myDegreeText(earthQuakeInfo.degree),
-
-                                //Text(earthQuakeInfo.degree.toString()),
                               ]),
                         ),
                       ),
@@ -173,8 +171,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
                               ]),
                         ),
                       ),
-//                      Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
-                      // Text("发生时间:"+earthQuakeInfo.happenTime,style:TextStyle(color: Colors.grey,fontSize: 13 )),
                     ])),
           ),
           // 向右到箭头

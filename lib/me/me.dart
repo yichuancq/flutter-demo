@@ -1,12 +1,19 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 //command+option+L 格式化代码
 //me
-class MeListView extends StatelessWidget {
-  BuildContext _context;
+class MeListView extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return new MeListViewState();
+  }
+}
 
+class MeListViewState extends State<MeListView> {
   Widget initView() {
     var container = Container(
       margin: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
@@ -17,22 +24,22 @@ class MeListView extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Container(
-                color: Colors.white,
+//                color: Colors.white,
                 child: new Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      // 头像
-                      child: new Image.asset("assets/image/head.png",
-                          width: 60, height: 60),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      // 姓名
-                      child: new Text("yichuan"),
-                    ),
-                  ],
-                )),
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  // 头像
+                  child: new Image.asset("assets/image/head.png",
+                      width: 60, height: 60),
+                ),
+                Expanded(
+                  flex: 2,
+                  // 姓名
+                  child: new Text("yichuan"),
+                ),
+              ],
+            )),
           ),
           //RWO 2
           Expanded(
@@ -40,7 +47,7 @@ class MeListView extends StatelessWidget {
             child: Container(
               //内边距
               padding: new EdgeInsets.all(10.0),
-              color: Colors.white,
+//              color: Colors.white,
               child: Column(
                 verticalDirection: VerticalDirection.down,
                 children: <Widget>[
@@ -97,6 +104,37 @@ class MeListView extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  new Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: ListTile(
+                          title: Text("切换主题"),
+                          leading: new Icon(Icons.swap_horiz),
+                          trailing: CupertinoSwitch(
+                            activeColor: Colors.green,
+
+                            ///自定义颜色
+                            value: _switchValue,
+                            onChanged: (bool value) {
+                              setState(() {
+                                ///状态
+                                _switchValue = value;
+                                // 使用
+                              });
+                            },
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _switchValue = !_switchValue;
+                            });
+                          },
+                        ),
+                      ),
+                      //Divider(height:5.0,indent:0.0,color: Colors.grey)
+                    ],
+                  ),
+
                   new Row(
                     children: <Widget>[
                       Expanded(
@@ -110,7 +148,7 @@ class MeListView extends StatelessWidget {
                               duration: Duration(milliseconds: 500),
                               backgroundColor: Colors.green,
                             );
-                            Scaffold.of(_context).showSnackBar(snackBar);
+                            Scaffold.of(context).showSnackBar(snackBar);
                           },
                         ),
                       ),
@@ -130,7 +168,7 @@ class MeListView extends StatelessWidget {
                               duration: Duration(milliseconds: 500),
                               backgroundColor: Colors.green,
                             );
-                            Scaffold.of(_context).showSnackBar(snackBar);
+                            Scaffold.of(context).showSnackBar(snackBar);
                           },
                         ),
                       ),
@@ -150,7 +188,7 @@ class MeListView extends StatelessWidget {
                               duration: Duration(milliseconds: 500),
                               backgroundColor: Colors.green,
                             );
-                            Scaffold.of(_context).showSnackBar(snackBar);
+                            Scaffold.of(context).showSnackBar(snackBar);
                           },
                         ),
                       ),
@@ -164,7 +202,7 @@ class MeListView extends StatelessWidget {
                           leading: new Icon(Icons.directions_walk),
                           trailing: new Icon(Icons.keyboard_arrow_right),
                           onTap: () {
-                            exitSystem();
+                            exitSystemIos();
                           },
                         ),
                       ),
@@ -180,46 +218,64 @@ class MeListView extends StatelessWidget {
     return container;
   }
 
-  //exit
-  exitSystem() {
-    showDialog(
-        context: _context,
-        child: new AlertDialog(
-          content: new Text("退出系统？"),
-          actions: <Widget>[
-            new FlatButton(
-              onPressed: () {
-                exit(0);
-              },
-              child: new Text("确定"),
-              textColor: Colors.green,
-            ),
-            new FlatButton(
+  // ios风格的对话框
+  void exitSystemIos() {
+    showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return new CupertinoAlertDialog(
+//            title: new Text('退出系统?'),
+            content: new Text("退出系统？"),
+            actions: <Widget>[
+              new CupertinoDialogAction(
+                child: new Text('取消'),
+                isDefaultAction: true,
                 onPressed: () {
-                  Navigator.pop(_context); //关闭对话框
+                  Navigator.of(context).pop();
                 },
-                child: new Text("取消"),
-                textColor: Colors.grey),
-          ],
-        ));
+              ),
+              new CupertinoDialogAction(
+                child: new Text('确定'),
+                isDestructiveAction: true,
+                onPressed: () {
+                  exit(0);
+                  //Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
+  ///
+  void infoDialog() {
+    showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return new CupertinoAlertDialog(
+//            title: new Text('退出系统?'),
+            content: new Text("info"),
+            actions: <Widget>[
+              new FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context); //关闭对话框
+                  },
+                  child: new Text("取消"),
+                  textColor: Colors.grey),
+            ],
+          );
+        });
 
-  AlertDialog dialog = new AlertDialog(
-    content: new Text(
-      "info",
-      style: new TextStyle(fontSize: 30.0, color: Colors.green),
-    ),
-  );
+  }
+  bool _switchValue = false;
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
-
+//    _context = context;
     return Scaffold(
-      backgroundColor: Colors.grey,
+//      backgroundColor: Colors.grey,
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          showDialog(context: context, child: dialog);
+          infoDialog();
           print("press...");
         },
         child: new Icon(Icons.mail),

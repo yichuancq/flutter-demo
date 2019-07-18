@@ -7,6 +7,7 @@ void main() => runApp(new MyApp());
 
 /* 创建一个无状态的 Widget */
 class MyApp extends StatelessWidget {
+  //todo 输入法切换的快捷键 control+space
   ////command+option+L 格式化代码
   @override
   Widget build(BuildContext context) {
@@ -14,9 +15,9 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false, // 去掉DEBUG 右上角 设置这一属性即可
       title: 'Demo', // 设置 App 的标题
-//      theme: Constants.lightTheme,
+      theme: Constants.lightTheme,
 //      theme: Constants.darkTheme,
-      theme: new ThemeData(primaryColor: Colors.green), //设置主题颜色
+//      theme: new ThemeData(primaryColor: Colors.green), //设置主题颜色
 //      home: EarthQuakeCardListView(),
 //      home: EarthQuakeListView(),
       //home: new RandomWords()
