@@ -14,9 +14,9 @@ class EarthQuakeListView extends StatefulWidget {
   }
 }
 
-// step2
+/// step2
 class EarthQuakeListViewState extends State<EarthQuakeListView> {
-  //自定义一个数据集合
+  ///自定义一个数据集合
   List earthInfoList = [];
 
   @override
@@ -147,7 +147,7 @@ class SecNextPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.grey,
+//      backgroundColor: Colors.grey,
       appBar: new AppBar(
         title: Text("详情查看", style: TextStyle(fontSize: 15)),
       ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/service/earth_quake_service.dart';
-
 import 'earth_quake_listview.dart';
 
 class EarthQuakeCardListView extends StatefulWidget {

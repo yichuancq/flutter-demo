@@ -61,10 +61,10 @@ class MeListViewState extends State<MeListView> {
                           new IconButton(
                             icon: Icon(Icons.border_inner),
                             onPressed: () {
-                              print("评价");
+                              print("讨论");
                             },
                           ),
-                          new Text("评价"),
+                          new Text("讨论"),
                         ],
                       ),
                       new Column(
@@ -270,7 +270,6 @@ class MeListViewState extends State<MeListView> {
 
   @override
   Widget build(BuildContext context) {
-//    _context = context;
     return Scaffold(
 //      backgroundColor: Colors.grey,
       floatingActionButton: new FloatingActionButton(

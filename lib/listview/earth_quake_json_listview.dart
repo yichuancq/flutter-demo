@@ -126,8 +126,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView> {
   Widget build(BuildContext context) {
     EarthQuakeInfoDTO _earthQuakeInfoDTO;
     return new FutureBuilder(
-      future: DefaultAssetBundle.of(context)
-          .loadString("data/json/earth_info.json"),
+      future: DefaultAssetBundle.of(context).loadString("data/json/earth_info.json"),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final jsonMap = json.decode(snapshot.data.toString());
