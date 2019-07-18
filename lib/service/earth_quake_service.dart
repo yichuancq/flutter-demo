@@ -7,7 +7,7 @@ import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 Future<String> loadJsonFile() async {
   //data/json/earth_info.json
   //assets/earth_info.json
-  return await rootBundle.loadString('data/json/earth_info.json');
+  return await rootBundle.loadString('assets/json/earth_info.json');
 }
 
 Future<EarthQuakeInfoDTO> decodeEarthQuakeInfoDTO() async {

@@ -5,6 +5,7 @@ import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/utils/http_service.dart';
 import 'earth_quake_listview.dart';
+
 class EarthQuakeCardListView extends StatefulWidget {
   //
   @override
@@ -24,6 +25,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
   //我们只需要用我们自己的状态继承这个抽象状态，并实现 wantKeepAlive 方法即可。
   @override
   bool get wantKeepAlive => true;
+
   ///异步加载网络数据
   void loadData() async {
     EarthQuakeInfoDTO dto = await getEarthInfoHttp();
@@ -54,14 +56,12 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
 
   @override
   void dispose() {
-//    print("on dispose...");
     earthInfoList.clear();
     super.dispose();
   }
 
   @override
   void initState() {
-//    print("on initState...");
     loadData();
     super.initState();
   }
@@ -92,13 +92,11 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
               fit: BoxFit.fill,
             ),
           ),
-
           Expanded(
             //设置弹性系数
             flex: 10,
             child: Container(
                 margin: EdgeInsets.only(left: 4.0, right: 4.0),
-                width: 200,
 //            color: Colors.red,
                 height: 85.0,
                 child: Column(
@@ -127,8 +125,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
                         flex: 1,
                         child: Container(
                           child: Row(
-                              // 对齐方式
-                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               // 从左到右
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
@@ -144,45 +140,21 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
                       Expanded(
                         flex: 1,
                         child: Container(
-                          child: Row(
-                              // 从左到右
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Text("发震时刻(UTC+8):" + earthQuakeInfo.happenTime,
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 13)),
-                              ]),
+                          child: Text(
+                              "发震时刻(UTC+8):" + earthQuakeInfo.happenTime,
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 13)),
                         ),
                       ),
                       Expanded(
                         flex: 1,
-                        child: Container(
-                          child: Row(
-                              // 从左到右
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Text("参考位置:" + earthQuakeInfo.happenPlace,
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 13)),
-                              ]),
-                        ),
+                        child: Text("参考位置:" + earthQuakeInfo.happenPlace,
+                            style: TextStyle(color: Colors.grey, fontSize: 13)),
                       ),
                     ])),
           ),
           // 向右到箭头
-          Expanded(
-            //设置弹性系数
-            flex: 1,
-            child: Container(
-//              color: Colors.green,
-              width: 10,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[new Icon(Icons.navigate_next)],
-              ),
-            ),
-            // child: new Icon(Icons.navigate_next)
-          ),
+          new Icon(Icons.navigate_next),
         ],
       ),
     );
@@ -216,7 +188,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       // 加载菊花
       return CupertinoActivityIndicator();
     } else {
-      print("加载数据了。。。");
       print(earthInfoList.length);
       //
       return ListView.builder(

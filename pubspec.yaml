@@ -60,7 +60,6 @@ flutter:
     - assets/image/map.png
     - assets/image/head.png
     - assets/json/topic.json
-    - data/json/earth_info.json
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
