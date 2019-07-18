@@ -1,10 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
-//command+option+L 格式化代码
 //me
 class MeListView extends StatelessWidget {
+  //_context
   BuildContext _context;
 
   Widget initView() {
@@ -27,7 +27,7 @@ class MeListView extends StatelessWidget {
                           width: 60, height: 60),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 4,
                       // 姓名
                       child: new Text("yichuan"),
                     ),
@@ -164,7 +164,13 @@ class MeListView extends StatelessWidget {
                           leading: new Icon(Icons.directions_walk),
                           trailing: new Icon(Icons.keyboard_arrow_right),
                           onTap: () {
-                            exitSystem();
+//                                final snackBar = SnackBar(
+//                                  content: Text('退出'),
+//                                  duration: Duration(milliseconds: 500),
+//                                  backgroundColor: Colors.green,);
+//                                Scaffold.of(_context).showSnackBar(snackBar);
+
+                            pop();
                           },
                         ),
                       ),
@@ -180,36 +186,17 @@ class MeListView extends StatelessWidget {
     return container;
   }
 
-  //exit
-  exitSystem() {
-    showDialog(
-        context: _context,
-        child: new AlertDialog(
-          content: new Text("退出系统？"),
-          actions: <Widget>[
-            new FlatButton(
-              onPressed: () {
-                exit(0);
-              },
-              child: new Text("确定"),
-              textColor: Colors.green,
-            ),
-            new FlatButton(
-                onPressed: () {
-                  Navigator.pop(_context); //关闭对话框
-                },
-                child: new Text("取消"),
-                textColor: Colors.grey),
-          ],
-        ));
-  }
-
   AlertDialog dialog = new AlertDialog(
     content: new Text(
       "info",
       style: new TextStyle(fontSize: 30.0, color: Colors.green),
     ),
   );
+
+  //
+  static Future<void> pop() async {
+    await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+  }
 
   @override
   Widget build(BuildContext context) {

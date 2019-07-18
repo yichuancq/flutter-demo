@@ -60,8 +60,7 @@ class RandomWordsState extends State<RandomWords> {
               icon: new Icon(Icons.list),
               onPressed: () {
                 // 实现页面跳转的函数
-                Navigator
-                    .of(context)
+                Navigator.of(context)
                     .push(new MaterialPageRoute(builder: (context) {
                   return new SavedPage(saved: _saved, biggerFont: _biggerFont);
                 }));
@@ -77,14 +76,14 @@ class RandomWordsState extends State<RandomWords> {
 class SavedPage extends StatelessWidget {
   // 声明类的参数
   SavedPage({@required this.saved, @required this.biggerFont});
+
   final Set<WordPair> saved;
   final TextStyle biggerFont;
 
   // 渲染一个列表
   @override
   Widget build(BuildContext context) {
-    final divided = ListTile
-        .divideTiles(
+    final divided = ListTile.divideTiles(
       context: context,
       tiles: saved.map((pair) {
         return new ListTile(

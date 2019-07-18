@@ -5,7 +5,8 @@ import 'package:untitled/model/earth_quake_model.dart';
 import 'package:flutter/material.dart';
 import 'earth_quake_listview.dart';
 import 'package:untitled/service/earth_quake_service.dart';
-class EarthQuakeCardListView extends StatefulWidget{
+
+class EarthQuakeCardListView extends StatefulWidget {
   //
   @override
   State<StatefulWidget> createState() {
@@ -13,6 +14,7 @@ class EarthQuakeCardListView extends StatefulWidget{
     return new EarthQuakeCardListViewState();
   }
 }
+
 // step2
 class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
     with AutomaticKeepAliveClientMixin {
@@ -24,17 +26,16 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
   @override
   bool get wantKeepAlive => true;
 
-
   void loadData() async {
     print("loadData...");
-    EarthQuakeInfoDTO dto=  await decodeEarthQuakeInfoDTO();
-    for(Shuju data in dto.shuju) {
-      EarthQuakeInfo quakeInfo=new EarthQuakeInfo();
-      quakeInfo.degree= double.parse(data.m);
-      quakeInfo.depths=data.ePIDEPTH;
-      quakeInfo.happenTime=data.oTIME;
-      quakeInfo.happenPlace=data.lOCATIONC;
-      print( data.toString());
+    EarthQuakeInfoDTO dto = await decodeEarthQuakeInfoDTO();
+    for (Shuju data in dto.shuju) {
+      EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
+      quakeInfo.degree = double.parse(data.m);
+      quakeInfo.depths = data.ePIDEPTH;
+      quakeInfo.happenTime = data.oTIME;
+      quakeInfo.happenPlace = data.lOCATIONC;
+      print(data.toString());
       earthInfoList.add(quakeInfo);
     }
     //更新列表
@@ -43,64 +44,67 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
     });
   }
 
-  void  loadList() {
+  void loadList() {
     for (int i = 0; i < 20; i++) {
-      EarthQuakeInfo quakeInfo=new EarthQuakeInfo();
-      quakeInfo.degree=0.98+i;
-      quakeInfo.depths=10;
-      quakeInfo.happenTime="2019-08-12 12:23:34";
-      quakeInfo.happenPlace="test";
+      EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
+      quakeInfo.degree = 0.98 + i;
+      quakeInfo.depths = 10;
+      quakeInfo.happenTime = "2019-08-12 12:23:34";
+      quakeInfo.happenPlace = "test";
       earthInfoList.add(quakeInfo);
     }
-
   }
+
   @override
   void dispose() {
     print("on dispose...");
     earthInfoList.clear();
     super.dispose();
   }
+
   @override
   void initState() {
     print("on initState...");
     loadData();
     super.initState();
-
   }
+
   //
   //根据强度自定义颜色
   Widget myDegreeText(final double degree) {
-    if(degree>=6.0) {
+    if (degree >= 6.0) {
       //double -> String
-      return new Text(degree.toStringAsFixed(1), style: TextStyle(color: Colors.red,fontSize: 15 ));
+      return new Text(degree.toStringAsFixed(1),
+          style: TextStyle(color: Colors.red, fontSize: 15));
     }
-    return new Text(degree.toStringAsFixed(1), style: TextStyle(color: Colors.black87,fontSize: 15 ));
+    return new Text(degree.toStringAsFixed(1), style: TextStyle(fontSize: 15));
   }
 
   buildRows(final int position) {
-    EarthQuakeInfo earthQuakeInfo=  earthInfoList[position];
+    EarthQuakeInfo earthQuakeInfo = earthInfoList[position];
     var row = Container(
-
       margin: EdgeInsets.all(4.0),
       child: Row(
         children: <Widget>[
           ClipRRect(
             // borderRadius: BorderRadius.circular(40.0),
-              borderRadius: BorderRadius.circular(4.0),
-              child:
-                 Image.asset("assets/image/weave.png",width: 50, height: 50,
-                fit: BoxFit.fill,
-              ),
+            borderRadius: BorderRadius.circular(4.0),
+            child: Image.asset(
+              "assets/image/weave.png",
+              width: 40,
+              height: 40,
+              fit: BoxFit.fill,
+            ),
           ),
 
           Expanded(
             //设置弹性系数
             flex: 10,
             child: Container(
-                margin: EdgeInsets.only(left: 4.0,right: 4.0),
-            width: 200,
+                margin: EdgeInsets.only(left: 4.0, right: 4.0),
+                width: 200,
 //            color: Colors.red,
-              height: 85.0,
+                height: 85.0,
                 child: Column(
 //                  // 从左到右
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,15 +114,18 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
                         flex: 1,
                         child: Container(
                           child: new Row(
-                            // 对齐方式
+                              // 对齐方式
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Text("震级：",style: TextStyle(color:Colors.orange,fontWeight: FontWeight.normal, fontSize: 15.0)),
+                                Text("震级(M)：",
+                                    style: TextStyle(
+                                        color: Colors.orange,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 15.0)),
                                 myDegreeText(earthQuakeInfo.degree),
 
                                 //Text(earthQuakeInfo.degree.toString()),
-                              ]
-                          ),
+                              ]),
                         ),
                       ),
                       //内嵌布局
@@ -126,29 +133,18 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
                         flex: 1,
                         child: Container(
                           child: Row(
-                            // 对齐方式
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            // 从左到右
+                              // 对齐方式
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // 从左到右
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Text("深度：",style: TextStyle(color:Colors.green, fontWeight: FontWeight.normal, fontSize: 15.0)),
+                                Text("深度(千米)：",
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 15.0)),
                                 Text(earthQuakeInfo.depths.toString()),
-
-                              ]
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          child: Row(
-                            // 从左到右
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Text("发生时间:"+earthQuakeInfo.happenTime,style:TextStyle(color: Colors.grey,fontSize: 13 )),
-
-                              ]
-                          ),
+                              ]),
                         ),
                       ),
                       Expanded(
@@ -158,17 +154,28 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
                               // 从左到右
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
-
-                              ]
-                          ),
+                                Text("发震时刻(UTC+8):" + earthQuakeInfo.happenTime,
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 13)),
+                              ]),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          child: Row(
+                              // 从左到右
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text("参考位置:" + earthQuakeInfo.happenPlace,
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 13)),
+                              ]),
                         ),
                       ),
 //                      Text("发生地点:"+earthQuakeInfo.happenPlace,style:TextStyle(color: Colors.grey,fontSize: 13 )),
-                     // Text("发生时间:"+earthQuakeInfo.happenTime,style:TextStyle(color: Colors.grey,fontSize: 13 )),
-                    ]
-                )
-            ),
+                      // Text("发生时间:"+earthQuakeInfo.happenTime,style:TextStyle(color: Colors.grey,fontSize: 13 )),
+                    ])),
           ),
           // 向右到箭头
           Expanded(
@@ -176,15 +183,13 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
             flex: 1,
             child: Container(
 //              color: Colors.green,
-              width:10,
+              width: 10,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  new Icon(Icons.navigate_next)
-                ],
+                children: <Widget>[new Icon(Icons.navigate_next)],
               ),
             ),
-             // child: new Icon(Icons.navigate_next)
+            // child: new Icon(Icons.navigate_next)
           ),
         ],
       ),
@@ -205,20 +210,20 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       child: row,
     );
   }
+
   //
   void doNavigator() {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new SecNextPage();
     }));
   }
+
   //实现构建方法
   viewBuild() {
-
     if (earthInfoList.length == 0) {
       // 加载菊花
       return CupertinoActivityIndicator();
-    }else{
-
+    } else {
       print("加载数据了。。。");
       print(earthInfoList.length);
       //
@@ -237,7 +242,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       //page bg color
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        title: Text("地震消息显示",style: TextStyle(fontSize: 15)),
+        title: Text("地震消息显示", style: TextStyle(fontSize: 15)),
       ),
 
       body: Center(
@@ -246,6 +251,4 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       ),
     );
   }
-
-
 }

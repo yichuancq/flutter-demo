@@ -6,10 +6,7 @@ class EarthQuakeInfoDTO {
   List<Shuju> shuju;
   String page;
   int num;
-
   EarthQuakeInfoDTO({this.shuju, this.page, this.num});
-
-
   EarthQuakeInfoDTO.fromJson(Map<String, dynamic> json) {
     if (json['shuju'] != null) {
       shuju = new List<Shuju>();
