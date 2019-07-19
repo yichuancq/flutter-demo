@@ -31,14 +31,21 @@ class EarthQuakeCardRefreshListViewState
   bool isLoading = false; //是否正在加载数据
   String loadMoreText = "没有更多数据";
 
-  GlobalKey<EasyRefreshState> _easyRefreshKey = new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = new GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey = new GlobalKey<RefreshFooterState>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey =
+      new GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey =
+      new GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey =
+      new GlobalKey<RefreshFooterState>();
+
   @override
   bool get wantKeepAlive => true;
+
   ///加载更多
-  TextStyle loadMoreTextStyle = new TextStyle(color: const Color(0xFF999999), fontSize: 14.0);
-  TextStyle titleStyle = new TextStyle(color: const Color(0xFF757575), fontSize: 14.0);
+  TextStyle loadMoreTextStyle =
+      new TextStyle(color: const Color(0xFF999999), fontSize: 14.0);
+  TextStyle titleStyle =
+      new TextStyle(color: const Color(0xFF757575), fontSize: 14.0);
 
   loadJsonData() async {
     //
@@ -60,6 +67,7 @@ class EarthQuakeCardRefreshListViewState
       //状态
     });
   }
+
   //异步加载网络数据
   void loadLessData() async {
     try {
@@ -250,16 +258,20 @@ class EarthQuakeCardRefreshListViewState
       ),
       child: initView(),
       onRefresh: () async {
-        setState(() {
-          earthInfoList.clear();
-          loadMoreData();
+        await new Future.delayed(const Duration(seconds: 1), () {
+          setState(() {
+            earthInfoList.clear();
+            loadMoreData();
+          });
         });
       },
       loadMore: () async {
-        setState(() {
-          earthInfoList.clear();
-          loadLessData();
-          //earthInfoList.addAll(addStr);
+        await new Future.delayed(const Duration(seconds: 1), () {
+          setState(() {
+            earthInfoList.clear();
+            loadLessData();
+            //earthInfoList.addAll(addStr);
+          });
         });
       },
     );
