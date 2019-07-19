@@ -1,13 +1,13 @@
 //dto解析网络数据
 //https://javiercbk.github.io/json_to_dart/
-//http://www.ceic.ac.cn/ajax/search?page=1&&start=2019-07-15&&end=2019-07-17&&jingdu1=&&jingdu2=&&weidu1=&&weidu2=&&height1=&&height2=&&zhenji1=&&zhenji2=&&callback=
 class EarthQuakeInfoDTO {
   //数据
   List<Shuju> shuju;
+  String jieguo;
   String page;
   int num;
 
-  EarthQuakeInfoDTO({this.shuju, this.page, this.num});
+  EarthQuakeInfoDTO({this.shuju, this.jieguo, this.page, this.num});
 
   EarthQuakeInfoDTO.fromJson(Map<String, dynamic> json) {
     if (json['shuju'] != null) {
@@ -16,7 +16,10 @@ class EarthQuakeInfoDTO {
         shuju.add(new Shuju.fromJson(v));
       });
     }
-    page = json['page'];
+    if (json['page'] != null || !json['page'].toString().isEmpty) {
+      page = "";
+    }
+    jieguo = json['jieguo'];
     num = json['num'];
   }
 
@@ -25,6 +28,7 @@ class EarthQuakeInfoDTO {
     if (this.shuju != null) {
       data['shuju'] = this.shuju.map((v) => v.toJson()).toList();
     }
+    data['jieguo'] = this.jieguo;
     data['page'] = this.page;
     data['num'] = this.num;
     return data;

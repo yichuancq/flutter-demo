@@ -20,6 +20,8 @@ class EarthQuakeCardRefreshListView extends StatefulWidget {
 class EarthQuakeCardRefreshListViewState
     extends State<EarthQuakeCardRefreshListView>
     with AutomaticKeepAliveClientMixin {
+  EarthQuakeInfoDTO dto;
+
   //自定义一个数据集合
   List earthInfoList = [];
   int currentPage = 0; //第一页
@@ -39,34 +41,39 @@ class EarthQuakeCardRefreshListViewState
   TextStyle titleStyle =
       new TextStyle(color: const Color(0xFF757575), fontSize: 14.0);
 
-
   //异步加载网络数据
   void loadMoreData() async {
-    ///
-    this.currentPage++;
-    print("currentPage :${currentPage}");
-    var count = (currentPage - 1) * pageSize;
-    //
-    EarthQuakeInfoDTO dto = await getEarthInfoPagesHttp(currentPage);
-    //total Pages
-    totalSize = dto.num;
-    print("totalPage :${totalSize}");
-    if (currentPage > totalSize) {
-      print("超过总页数...");
-      return;
+    try {
+      ///
+      this.currentPage++;
+      print("currentPage :${currentPage}");
+      var count = (currentPage - 1) * pageSize;
+      //
+      dto = await getEarthInfoPagesHttp(currentPage);
+      //total Pages
+      totalSize = dto.num;
+      print("info " + dto.jieguo);
+      print("totalPage :${totalSize}");
+      if (currentPage > totalSize) {
+        print("超过总页数...");
+        currentPage = 0;
+        return;
+      }
+      for (Shuju data in dto.shuju) {
+        EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
+        quakeInfo.degree = double.parse(data.m);
+        quakeInfo.depths = data.ePIDEPTH;
+        quakeInfo.happenTime = data.oTIME;
+        quakeInfo.happenPlace = data.lOCATIONC;
+        earthInfoList.add(quakeInfo);
+      }
+      //更新列表
+      setState(() {
+        //状态
+      });
+    } catch (e) {
+      print(e.toString());
     }
-    for (Shuju data in dto.shuju) {
-      EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
-      quakeInfo.degree = double.parse(data.m);
-      quakeInfo.depths = data.ePIDEPTH;
-      quakeInfo.happenTime = data.oTIME;
-      quakeInfo.happenPlace = data.lOCATIONC;
-      earthInfoList.add(quakeInfo);
-    }
-    //更新列表
-    setState(() {
-      //状态
-    });
   }
 
   @override
@@ -208,7 +215,7 @@ class EarthQuakeCardRefreshListViewState
 
   ///下拉刷新,必须异步async不然会报错
   Future _pullToRefresh() async {
-   // currentPage = 0;
+    // currentPage = 0;
     earthInfoList.clear();
     loadMoreData();
     return null;
@@ -230,9 +237,8 @@ class EarthQuakeCardRefreshListViewState
           color: Colors.green,
           //下拉刷新
           child: ListView.builder(
-
-              /// +1 ?
-              itemCount: earthInfoList.length + 1,
+              itemCount: earthInfoList.length,
+              //itemCount: earthInfoList.length + 1,
               itemBuilder: (BuildContext context, int position) {
                 if (position == earthInfoList.length) {
                   return _buildProgressMoreIndicator();
@@ -247,11 +253,20 @@ class EarthQuakeCardRefreshListViewState
 
   @override
   Widget build(BuildContext context) {
+    String title = "地震信息";
+    //更新列表
+    setState(() {
+      //状态
+      if (dto != null && dto.jieguo != null) {
+        title = dto.jieguo;
+      }
+    });
     return Scaffold(
       //page bg color
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        title: Text("最近48小时地震信息", style: TextStyle(fontSize: 15)),
+        //title: Text("最近48小时地震信息", style: TextStyle(fontSize: 15)),
+        title: Text(title, style: TextStyle(fontSize: 15)),
       ),
       body: Center(
         //条目
