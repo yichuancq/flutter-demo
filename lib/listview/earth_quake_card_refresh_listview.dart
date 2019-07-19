@@ -5,6 +5,7 @@ import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/utils/http_service.dart';
 import 'earth_quake_listview.dart';
+import 'package:flutter/rendering.dart';
 
 /// 带刷新功能带列表
 class EarthQuakeCardRefreshListView extends StatefulWidget {
@@ -27,6 +28,7 @@ class EarthQuakeCardRefreshListViewState
   int currentPage = 0; //第一页
   int pageSize = 10; //页容量
   int totalSize = 0; //总条数
+  bool isLoading = false; //是否正在加载数据
   String loadMoreText = "没有更多数据";
 
   //初始化滚动监听器，加载更多使用
@@ -41,36 +43,60 @@ class EarthQuakeCardRefreshListViewState
   TextStyle titleStyle =
       new TextStyle(color: const Color(0xFF757575), fontSize: 14.0);
 
+  loadJsonData() async {
+    //
+    dto = await getEarthInfoPagesHttp(currentPage);
+    //total Pages
+    totalSize = dto.num;
+    print("info " + dto.jieguo);
+    print("totalPage :${totalSize}");
+    for (Shuju data in dto.shuju) {
+      EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
+      quakeInfo.degree = double.parse(data.m);
+      quakeInfo.depths = data.ePIDEPTH;
+      quakeInfo.happenTime = data.oTIME;
+      quakeInfo.happenPlace = data.lOCATIONC;
+      earthInfoList.add(quakeInfo);
+    }
+    //更新列表
+    setState(() {
+      //状态
+    });
+  }
+
+  //异步加载网络数据
+  void loadLessData() async {
+    try {
+      if (currentPage <= 1) {
+        print("page index<=1...");
+        print("第一页");
+        currentPage = 2;
+      }
+      this.currentPage--;
+      print("currentPage :${currentPage}");
+      //var count = (currentPage - 1) * pageSize;
+      loadJsonData();
+      //更新列表
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   //异步加载网络数据
   void loadMoreData() async {
     try {
-      ///
-      this.currentPage++;
       print("currentPage :${currentPage}");
-      var count = (currentPage - 1) * pageSize;
-      //
-      dto = await getEarthInfoPagesHttp(currentPage);
-      //total Pages
-      totalSize = dto.num;
-      print("info " + dto.jieguo);
-      print("totalPage :${totalSize}");
+      print("totalSize :${totalSize}");
       if (currentPage > totalSize) {
         print("超过总页数...");
-        currentPage = 0;
-        return;
+        currentPage = totalSize - 1;
       }
-      for (Shuju data in dto.shuju) {
-        EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
-        quakeInfo.degree = double.parse(data.m);
-        quakeInfo.depths = data.ePIDEPTH;
-        quakeInfo.happenTime = data.oTIME;
-        quakeInfo.happenPlace = data.lOCATIONC;
-        earthInfoList.add(quakeInfo);
-      }
-      //更新列表
-      setState(() {
-        //状态
-      });
+      this.currentPage++;
+
+      print("currentPage :${currentPage}");
+      // var count = (currentPage - 1) * pageSize;
+
+      loadJsonData();
     } catch (e) {
       print(e.toString());
     }
@@ -79,18 +105,29 @@ class EarthQuakeCardRefreshListViewState
   @override
   void dispose() {
     earthInfoList.clear();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void addLister() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        print('滑动到了最底部');
+        _getLess();
+      }
+    });
   }
 
   @override
   void initState() {
     //加载第一页数据
+//    loadJsonData();
     loadMoreData();
-//    doListener();
     super.initState();
+    addLister();
   }
 
-  //
   //根据强度自定义颜色
   Widget myDegreeText(final double degree) {
     if (degree >= 6.0) {
@@ -206,7 +243,17 @@ class EarthQuakeCardRefreshListViewState
     );
   }
 
-  //
+  /**
+   * 上拉加载更多
+   */
+  Future _getLess() async {
+    print('上拉加载更多');
+    setState(() {
+      earthInfoList.clear();
+      loadLessData();
+    });
+  }
+
   void doNavigator() {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new SecNextPage();
@@ -224,9 +271,10 @@ class EarthQuakeCardRefreshListViewState
   //实现构建方法
   viewBuild() {
     if (earthInfoList.length == 0) {
-      /// 加载菊花
+      /// 加载菊花x
       //CircularProgressIndicator
 //      return new Center(child: new CircularProgressIndicator());
+//      return new Center(child: new CupertinoActivityIndicator());
       return new Center(child: new CupertinoActivityIndicator());
     } else {
       print(earthInfoList.length);
@@ -275,23 +323,3 @@ class EarthQuakeCardRefreshListViewState
     );
   }
 }
-//   void doListener () {
-//    //固定写法，初始化滚动监听器，加载更多使用
-//    _scrollController.addListener(() {
-//      var maxScroll = _scrollController.position.maxScrollExtent;
-//      var pixel = _scrollController.position.pixels;
-//      if (maxScroll == pixel && earthInfoList.length < totalSize) {
-//        setState(() {
-//          loadMoreText = "正在加载中...";
-//          loadMoreTextStyle =
-//              new TextStyle(color: Colors.green, fontSize: 14.0);
-//        });
-//        loadMoreData();
-//      } else {
-//        setState(() {
-//          loadMoreText = "没有更多数据";
-//          loadMoreTextStyle = new TextStyle(color: Colors.grey, fontSize: 14.0);
-//        });
-//      }
-//    });
-//  }
