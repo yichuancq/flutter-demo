@@ -16,7 +16,7 @@ class EarthQuakeInfoDTO {
         shuju.add(new Shuju.fromJson(v));
       });
     }
-    if (json['page'] != null || !json['page'].toString().isEmpty) {
+    if (json['page'] != null || !json['page'].isEmpty) {
       page = "";
     }
     jieguo = json['jieguo'];

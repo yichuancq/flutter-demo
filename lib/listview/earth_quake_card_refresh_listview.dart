@@ -1,11 +1,12 @@
 //地震消息listView
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/utils/http_service.dart';
 import 'earth_quake_listview.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 /// 带刷新功能带列表
 class EarthQuakeCardRefreshListView extends StatefulWidget {
@@ -21,9 +22,8 @@ class EarthQuakeCardRefreshListView extends StatefulWidget {
 class EarthQuakeCardRefreshListViewState
     extends State<EarthQuakeCardRefreshListView>
     with AutomaticKeepAliveClientMixin {
-  EarthQuakeInfoDTO dto;
-
   //自定义一个数据集合
+  EarthQuakeInfoDTO dto;
   List earthInfoList = [];
   int currentPage = 0; //第一页
   int pageSize = 10; //页容量
@@ -31,17 +31,14 @@ class EarthQuakeCardRefreshListViewState
   bool isLoading = false; //是否正在加载数据
   String loadMoreText = "没有更多数据";
 
-  //初始化滚动监听器，加载更多使用
-  ScrollController _scrollController = new ScrollController();
-
+  GlobalKey<EasyRefreshState> _easyRefreshKey = new GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = new GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey = new GlobalKey<RefreshFooterState>();
   @override
   bool get wantKeepAlive => true;
-
   ///加载更多
-  TextStyle loadMoreTextStyle =
-      new TextStyle(color: const Color(0xFF999999), fontSize: 14.0);
-  TextStyle titleStyle =
-      new TextStyle(color: const Color(0xFF757575), fontSize: 14.0);
+  TextStyle loadMoreTextStyle = new TextStyle(color: const Color(0xFF999999), fontSize: 14.0);
+  TextStyle titleStyle = new TextStyle(color: const Color(0xFF757575), fontSize: 14.0);
 
   loadJsonData() async {
     //
@@ -63,7 +60,6 @@ class EarthQuakeCardRefreshListViewState
       //状态
     });
   }
-
   //异步加载网络数据
   void loadLessData() async {
     try {
@@ -92,10 +88,8 @@ class EarthQuakeCardRefreshListViewState
         currentPage = totalSize - 1;
       }
       this.currentPage++;
-
       print("currentPage :${currentPage}");
       // var count = (currentPage - 1) * pageSize;
-
       loadJsonData();
     } catch (e) {
       print(e.toString());
@@ -105,27 +99,15 @@ class EarthQuakeCardRefreshListViewState
   @override
   void dispose() {
     earthInfoList.clear();
-    _scrollController.dispose();
     super.dispose();
-  }
-
-  void addLister() {
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        print('滑动到了最底部');
-        _getLess();
-      }
-    });
   }
 
   @override
   void initState() {
     //加载第一页数据
-//    loadJsonData();
+    earthInfoList.clear();
     loadMoreData();
     super.initState();
-    addLister();
   }
 
   //根据强度自定义颜色
@@ -233,70 +215,54 @@ class EarthQuakeCardRefreshListViewState
     );
   }
 
-  ///加载更多进度条
-  Widget _buildProgressMoreIndicator() {
-    return new Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: new Center(
-        child: new Text(loadMoreText, style: loadMoreTextStyle),
-      ),
-    );
-  }
-
-  /**
-   * 上拉加载更多
-   */
-  Future _getLess() async {
-    print('上拉加载更多');
-    setState(() {
-      earthInfoList.clear();
-      loadLessData();
-    });
-  }
-
   void doNavigator() {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new SecNextPage();
     }));
   }
 
-  ///下拉刷新,必须异步async不然会报错
-  Future _pullToRefresh() async {
-    // currentPage = 0;
-    earthInfoList.clear();
-    loadMoreData();
-    return null;
+  initView() {
+    return ListView.builder(
+        //item 的数量
+        itemCount: earthInfoList.length,
+        itemBuilder: (BuildContext context, int position) {
+          return buildRows(position);
+        });
   }
 
-  //实现构建方法
   viewBuild() {
-    if (earthInfoList.length == 0) {
-      /// 加载菊花x
-      //CircularProgressIndicator
-//      return new Center(child: new CircularProgressIndicator());
-//      return new Center(child: new CupertinoActivityIndicator());
-      return new Center(child: new CupertinoActivityIndicator());
-    } else {
-      print(earthInfoList.length);
-      //
-      return new RefreshIndicator(
-          //
-          onRefresh: _pullToRefresh,
-          color: Colors.green,
-          //下拉刷新
-          child: ListView.builder(
-              itemCount: earthInfoList.length,
-              //itemCount: earthInfoList.length + 1,
-              itemBuilder: (BuildContext context, int position) {
-                if (position == earthInfoList.length) {
-                  return _buildProgressMoreIndicator();
-                }
-                return buildRows(position);
-              },
-
-              ///指明控制器加载更多使用
-              controller: _scrollController));
-    }
+    return new EasyRefresh(
+      key: _easyRefreshKey,
+      behavior: ScrollOverBehavior(),
+      refreshHeader: ClassicsHeader(
+        key: _headerKey,
+        bgColor: Colors.transparent,
+        textColor: Colors.black87,
+        moreInfoColor: Colors.black54,
+        showMore: true,
+      ),
+      refreshFooter: ClassicsFooter(
+        key: _footerKey,
+        bgColor: Colors.transparent,
+        textColor: Colors.black87,
+        moreInfoColor: Colors.black54,
+        showMore: true,
+      ),
+      child: initView(),
+      onRefresh: () async {
+        setState(() {
+          earthInfoList.clear();
+          loadMoreData();
+        });
+      },
+      loadMore: () async {
+        setState(() {
+          earthInfoList.clear();
+          loadLessData();
+          //earthInfoList.addAll(addStr);
+        });
+      },
+    );
   }
 
   @override

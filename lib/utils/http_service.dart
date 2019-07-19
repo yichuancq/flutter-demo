@@ -16,7 +16,7 @@ Future<EarthQuakeInfoDTO> getEarthInfoHttp() async {
       String  fixString="Query18009440560787813581_1563467313956(";
       String subString=result.substring(fixString.length+1,result.length-1);
       final jsonMap = json.decode(subString);
-      return EarthQuakeInfoDTO.fromJson(jsonMap);;
+      return EarthQuakeInfoDTO.fromJson(jsonMap);
     }
   } catch (e) {
     print(e);
@@ -40,7 +40,7 @@ Future<EarthQuakeInfoDTO> getEarthInfoPagesHttp(int page) async {
       String  fixString="Query18009440560787813581_1563467313956(";
       String subString=result.substring(fixString.length+1,result.length-1);
       final jsonMap = json.decode(subString);
-      return EarthQuakeInfoDTO.fromJson(jsonMap);;
+      return EarthQuakeInfoDTO.fromJson(jsonMap);
     }
   } catch (e) {
     print(e);
