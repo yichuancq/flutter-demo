@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:flutter/material.dart';
+
 class EarthQuakeCardListView extends StatefulWidget {
   //
   @override
@@ -124,7 +125,8 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView> {
   Widget build(BuildContext context) {
     EarthQuakeInfoDTO _earthQuakeInfoDTO;
     return new FutureBuilder(
-      future: DefaultAssetBundle.of(context).loadString("data/json/earth_info.json"),
+      future: DefaultAssetBundle.of(context)
+          .loadString("data/json/earth_info.json"),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final jsonMap = json.decode(snapshot.data.toString());

@@ -6,26 +6,55 @@ import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/utils/http_service.dart';
 import 'earth_quake_listview.dart';
 
-class EarthQuakeCardListView extends StatefulWidget {
+/// 带刷新功能带列表
+class EarthQuakeCardRefreshListView extends StatefulWidget {
   //
   @override
   State<StatefulWidget> createState() {
     //
-    return new EarthQuakeCardListViewState();
+    return new EarthQuakeCardRefreshListViewState();
   }
 }
 
-// step2
-class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
+///
+class EarthQuakeCardRefreshListViewState
+    extends State<EarthQuakeCardRefreshListView>
     with AutomaticKeepAliveClientMixin {
   //自定义一个数据集合
   List earthInfoList = [];
+  int currentPage = 0; //第一页
+  int pageSize = 10; //页容量
+  int totalSize = 0; //总条数
+  String loadMoreText = "没有更多数据";
+
+  //初始化滚动监听器，加载更多使用
+  ScrollController _scrollController = new ScrollController();
+
   @override
   bool get wantKeepAlive => true;
 
-  ///异步加载网络数据
-  void loadData() async {
-    EarthQuakeInfoDTO dto = await getEarthInfoHttp();
+  ///加载更多
+  TextStyle loadMoreTextStyle =
+      new TextStyle(color: const Color(0xFF999999), fontSize: 14.0);
+  TextStyle titleStyle =
+      new TextStyle(color: const Color(0xFF757575), fontSize: 14.0);
+
+
+  //异步加载网络数据
+  void loadMoreData() async {
+    ///
+    this.currentPage++;
+    print("currentPage :${currentPage}");
+    var count = (currentPage - 1) * pageSize;
+    //
+    EarthQuakeInfoDTO dto = await getEarthInfoPagesHttp(currentPage);
+    //total Pages
+    totalSize = dto.num;
+    print("totalPage :${totalSize}");
+    if (currentPage > totalSize) {
+      print("超过总页数...");
+      return;
+    }
     for (Shuju data in dto.shuju) {
       EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
       quakeInfo.degree = double.parse(data.m);
@@ -40,17 +69,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
     });
   }
 
-  void loadList() {
-    for (int i = 0; i < 20; i++) {
-      EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
-      quakeInfo.degree = 0.98 + i;
-      quakeInfo.depths = 10;
-      quakeInfo.happenTime = "2019-08-12 12:23:34";
-      quakeInfo.happenPlace = "test";
-      earthInfoList.add(quakeInfo);
-    }
-  }
-
   @override
   void dispose() {
     earthInfoList.clear();
@@ -59,7 +77,9 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
 
   @override
   void initState() {
-    loadData();
+    //加载第一页数据
+    loadMoreData();
+//    doListener();
     super.initState();
   }
 
@@ -67,6 +87,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
   //根据强度自定义颜色
   Widget myDegreeText(final double degree) {
     if (degree >= 6.0) {
+      //double -> String
       return new Text(degree.toStringAsFixed(1),
           style: TextStyle(color: Colors.red, fontSize: 15));
     }
@@ -168,6 +189,16 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
     );
   }
 
+  ///加载更多进度条
+  Widget _buildProgressMoreIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: new Center(
+        child: new Text(loadMoreText, style: loadMoreTextStyle),
+      ),
+    );
+  }
+
   //
   void doNavigator() {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
@@ -175,20 +206,42 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
     }));
   }
 
+  ///下拉刷新,必须异步async不然会报错
+  Future _pullToRefresh() async {
+   // currentPage = 0;
+    earthInfoList.clear();
+    loadMoreData();
+    return null;
+  }
+
   //实现构建方法
   viewBuild() {
     if (earthInfoList.length == 0) {
-      // 加载菊花
-      return CupertinoActivityIndicator();
+      /// 加载菊花
+      //CircularProgressIndicator
+//      return new Center(child: new CircularProgressIndicator());
+      return new Center(child: new CupertinoActivityIndicator());
     } else {
       print(earthInfoList.length);
       //
-      return ListView.builder(
-          //item 的数量
-          itemCount: earthInfoList.length,
-          itemBuilder: (BuildContext context, int position) {
-            return buildRows(position);
-          });
+      return new RefreshIndicator(
+          //
+          onRefresh: _pullToRefresh,
+          color: Colors.green,
+          //下拉刷新
+          child: ListView.builder(
+
+              /// +1 ?
+              itemCount: earthInfoList.length + 1,
+              itemBuilder: (BuildContext context, int position) {
+                if (position == earthInfoList.length) {
+                  return _buildProgressMoreIndicator();
+                }
+                return buildRows(position);
+              },
+
+              ///指明控制器加载更多使用
+              controller: _scrollController));
     }
   }
 
@@ -200,7 +253,6 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       appBar: AppBar(
         title: Text("最近48小时地震信息", style: TextStyle(fontSize: 15)),
       ),
-
       body: Center(
         //条目
         child: viewBuild(),
@@ -208,3 +260,23 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
     );
   }
 }
+//   void doListener () {
+//    //固定写法，初始化滚动监听器，加载更多使用
+//    _scrollController.addListener(() {
+//      var maxScroll = _scrollController.position.maxScrollExtent;
+//      var pixel = _scrollController.position.pixels;
+//      if (maxScroll == pixel && earthInfoList.length < totalSize) {
+//        setState(() {
+//          loadMoreText = "正在加载中...";
+//          loadMoreTextStyle =
+//              new TextStyle(color: Colors.green, fontSize: 14.0);
+//        });
+//        loadMoreData();
+//      } else {
+//        setState(() {
+//          loadMoreText = "没有更多数据";
+//          loadMoreTextStyle = new TextStyle(color: Colors.grey, fontSize: 14.0);
+//        });
+//      }
+//    });
+//  }

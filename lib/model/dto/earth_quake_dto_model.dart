@@ -6,7 +6,9 @@ class EarthQuakeInfoDTO {
   List<Shuju> shuju;
   String page;
   int num;
+
   EarthQuakeInfoDTO({this.shuju, this.page, this.num});
+
   EarthQuakeInfoDTO.fromJson(Map<String, dynamic> json) {
     if (json['shuju'] != null) {
       shuju = new List<Shuju>();
@@ -56,38 +58,38 @@ class Shuju {
   String eQCATATYPE;
   String nEWDID;
 
-  Shuju({this.id,
-        this.cATAID,
-        this.sAVETIME,
-        this.oTIME,
-        this.ePILAT,
-        this.ePILON,
-        this.ePIDEPTH,
-        this.aUTOFLAG,
-        this.eQTYPE,
-        this.oTIMEFRA,
-        this.m,
-        this.mMS,
-        this.mMS7,
-        this.mML,
-        this.mMB,
-        this.mMB2,
-        this.sUMSTN,
-        this.lOCSTN,
-        this.lOCATIONC,
-        this.lOCATIONS,
-        this.cATATYPE,
-        this.sYNCTIME,
-        this.iSDEL,
-        this.eQCATATYPE,
-        this.nEWDID
-  });
-
+  Shuju(
+      {this.id,
+      this.cATAID,
+      this.sAVETIME,
+      this.oTIME,
+      this.ePILAT,
+      this.ePILON,
+      this.ePIDEPTH,
+      this.aUTOFLAG,
+      this.eQTYPE,
+      this.oTIMEFRA,
+      this.m,
+      this.mMS,
+      this.mMS7,
+      this.mML,
+      this.mMB,
+      this.mMB2,
+      this.sUMSTN,
+      this.lOCSTN,
+      this.lOCATIONC,
+      this.lOCATIONS,
+      this.cATATYPE,
+      this.sYNCTIME,
+      this.iSDEL,
+      this.eQCATATYPE,
+      this.nEWDID});
 
   @override
   String toString() {
     return 'Shuju{id: $id, oTIME: $oTIME, ePIDEPTH: $ePIDEPTH, m: $m, lOCATIONC: $lOCATIONC}';
   }
+
   //解析Json
   Shuju.fromJson(Map<String, dynamic> json) {
     id = json['id'];

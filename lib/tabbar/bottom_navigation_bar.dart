@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/listview/earth_quake_card_listview.dart';
+import 'package:untitled/listview/earth_quake_card_refresh_listview.dart';
 import 'package:untitled/me/me.dart';
 import 'package:untitled/topic/topic.dart';
 
@@ -17,7 +18,9 @@ class MyDemoState extends State<MyDemo> {
   buildBodyPage() {
     if (index == 0) {
       //return new TabBarDemo();
-      return new EarthQuakeCardListView();
+      //EarthQuakeCardRefreshListView
+      //EarthQuakeCardListView
+      return new EarthQuakeCardRefreshListView();
     }
     if (index == 1) {
       return new TopicListView();
@@ -30,8 +33,6 @@ class MyDemoState extends State<MyDemo> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.white,
-      //
       body: buildBodyPage(),
       bottomNavigationBar: new BottomNavigationBar(
         currentIndex: index,

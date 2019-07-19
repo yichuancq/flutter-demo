@@ -39,6 +39,8 @@ dependencies:
 # flutter_screenutil: ^0.5.2
   #dio
   dio: ^2.1.2
+  #图片轮播
+  flutter_swiper: ^1.0.6
 
 
 
