@@ -21,21 +21,17 @@ class MeListViewState extends State<MeListView> {
   Widget initView() {
     var container = Container(
       //外边距
+//      margin: EdgeInsets.only(top: 80),
       margin: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
 
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ///swap
-//          new SizedBox(
-//            height: 80.0,
-//            child: swapPageView(),
-//          ),
-
           Expanded(
             child: Container(
+//              color: Colors.green,
                 child: new Row(
-                  children: <Widget>[
+              children: <Widget>[
                 new Container(
                   //头像距离左边和右边的外边距
                   margin: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -53,8 +49,10 @@ class MeListViewState extends State<MeListView> {
             )),
           ),
 
+          /// 工具栏
           topTools(),
-          ///swap
+
+          /// 图片轮播
           new SizedBox(
             height: 80.0,
             child: swapPageView(),
@@ -63,11 +61,6 @@ class MeListViewState extends State<MeListView> {
           Expanded(
             flex: 6,
             child: Container(
-//              decoration: BoxDecoration(
-//                //背景色
-//                  color: Colors.grey,
-//                  shape: BoxShape.rectangle,
-//                  borderRadius: BorderRadius.all(Radius.circular(10))),
 //              //内边距
               padding: new EdgeInsets.all(10.0),
               child: Column(
@@ -187,8 +180,8 @@ class MeListViewState extends State<MeListView> {
   }
 
   ///顶部工具栏
-  Widget topTools(){
-   return new Row(
+  Widget topTools() {
+    return new Row(
       //关键地方 均匀布局
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -274,11 +267,12 @@ class MeListViewState extends State<MeListView> {
       itemCount: 5,
       //自动翻页
       autoplay: true,
-      itemWidth: MediaQuery.of(context).size.width,
+      // 设置宽度
+      itemWidth: MediaQuery.of(context).size.width *0.9,
       layout: SwiperLayout.STACK,
       // 分页指示器
       pagination: SwiperPagination(
-          alignment: Alignment.bottomRight, // 位置 Alignment.bottomRight
+          alignment: Alignment.bottomCenter, // 位置 Alignment.bottomRight
           margin: const EdgeInsets.fromLTRB(0, 0, 20, 10), // 距离调整
           //圆点滚动
           // 指示器构建
@@ -298,6 +292,7 @@ class MeListViewState extends State<MeListView> {
       viewportFraction: 0.8, // 当前视窗展示比例 小于1可见上一个和下一个视窗
     );
   }
+
 // ios风格的对话框
   void exitSystemIos() {
     showCupertinoDialog(
@@ -333,7 +328,6 @@ class MeListViewState extends State<MeListView> {
         context: context,
         builder: (context) {
           return new CupertinoAlertDialog(
-//            title: new Text('退出系统?'),
             content: new Text("info"),
             actions: <Widget>[
               new FlatButton(
@@ -349,35 +343,19 @@ class MeListViewState extends State<MeListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-//    backgroundColor: Colors.grey,
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          infoDialog();
-          print("press...");
-        },
-        child: new Icon(Icons.mail),
-        backgroundColor: Colors.green,
-      ),
-      appBar: AppBar(
-        title: Text("个人中心", style: TextStyle(fontSize: 15)),
-//        actions: <Widget>[
-//          new IconButton(
-//              icon: new Icon(Icons.menu),
-//              tooltip: 'menu',
-//              onPressed: () {
-//                final snackBar = SnackBar(
-//                  content: Text('menu'),
-//                  duration: Duration(milliseconds: 500),
-//                  backgroundColor: Colors.green,
-//                );
-//                Scaffold.of(context).showSnackBar(snackBar);
-//                // do nothing
-//              }),
-//        ],
-      ),
-      body: initView(),
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: new FloatingActionButton(
+          onPressed: () {
+            infoDialog();
+            print("press...");
+          },
+          child: new Icon(Icons.mail),
+          backgroundColor: Colors.green,
+        ),
+        body: initView(),
 //      body: swapPageView(),
+      ),
     );
   }
 }
