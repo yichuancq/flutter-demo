@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:untitled/utils/easy_badgeview.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 //个人中心界面
 class MeListView extends StatefulWidget {
@@ -21,13 +22,20 @@ class MeListViewState extends State<MeListView> {
     var container = Container(
       //外边距
       margin: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          ///swap
+//          new SizedBox(
+//            height: 80.0,
+//            child: swapPageView(),
+//          ),
+
           Expanded(
             child: Container(
                 child: new Row(
-              children: <Widget>[
+                  children: <Widget>[
                 new Container(
                   //头像距离左边和右边的外边距
                   margin: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -35,6 +43,7 @@ class MeListViewState extends State<MeListView> {
                       width: 60, height: 60),
                 ),
                 new Text("yichuan"),
+                //swapPageView(),
                 new EasyBadgeView()
                     .setBadgeNo("10+")
                     .setBadgeColor(Colors.green)
@@ -42,6 +51,13 @@ class MeListViewState extends State<MeListView> {
 //                    new EasyBadgeView().setBadgeNo("10+").setBadgeColor(Colors.red).build(context),
               ],
             )),
+          ),
+
+          topTools(),
+          ///swap
+          new SizedBox(
+            height: 80.0,
+            child: swapPageView(),
           ),
           //RWO 2
           Expanded(
@@ -57,57 +73,6 @@ class MeListViewState extends State<MeListView> {
               child: Column(
                 verticalDirection: VerticalDirection.down,
                 children: <Widget>[
-                  new Row(
-                    //关键地方 均匀布局
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Column>[
-                      new Column(
-                        children: <Widget>[
-                          new IconButton(
-                            icon: Icon(Icons.border_inner),
-                            onPressed: () {
-                              print("讨论");
-                            },
-                          ),
-                          new Text("讨论"),
-                        ],
-                      ),
-                      new Column(
-                        children: <Widget>[
-                          new IconButton(
-                            icon: Icon(Icons.card_travel),
-                            onPressed: () {
-                              print("收藏");
-                            },
-                          ),
-                          new Text("收藏"),
-                        ],
-                      ),
-                      new Column(
-                        children: <Widget>[
-                          new IconButton(
-                            icon: Icon(Icons.card_giftcard),
-                            onPressed: () {
-                              print("卡/券");
-                            },
-                          ),
-                          new Text("卡/券"),
-                        ],
-                      ),
-                      new Column(
-                        children: <Widget>[
-                          new IconButton(
-                            icon: Icon(Icons.mail),
-                            onPressed: () {
-                              print("消息");
-                            },
-                          ),
-                          new Text("消息"),
-                        ],
-                      ),
-                    ],
-                  ),
-
                   new Row(
                     children: <Widget>[
                       Expanded(
@@ -221,7 +186,119 @@ class MeListViewState extends State<MeListView> {
     return container;
   }
 
-  // ios风格的对话框
+  ///顶部工具栏
+  Widget topTools(){
+   return new Row(
+      //关键地方 均匀布局
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        new Column(
+          children: <Widget>[
+            new IconButton(
+              icon: Icon(Icons.border_inner),
+              onPressed: () {
+                print("讨论");
+              },
+            ),
+            new Text("讨论"),
+          ],
+        ),
+        new Column(
+          children: <Widget>[
+            new IconButton(
+              icon: Icon(Icons.card_travel),
+              onPressed: () {
+                print("收藏");
+              },
+            ),
+            new Text("收藏"),
+          ],
+        ),
+        new Column(
+          children: <Widget>[
+            new IconButton(
+              icon: Icon(Icons.card_giftcard),
+              onPressed: () {
+                print("卡/券");
+              },
+            ),
+            new Text("卡/券"),
+          ],
+        ),
+        new Column(
+          children: <Widget>[
+            new IconButton(
+              icon: Icon(Icons.mail),
+              onPressed: () {
+                print("消息");
+              },
+            ),
+            new Text("消息"),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget cardView() {
+    return new Card(
+      color: Colors.green,
+      child: new Container(
+        //padding: const EdgeInsets.only(left:0,bottom: 10),
+        child: ListTile(
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(4.0),
+            child: Image.asset("assets/head1.png",
+                width: 50, height: 50, fit: BoxFit.fill),
+          ),
+          //on click
+          title: new Text("西藏山南市错那县",
+              style: TextStyle(color: Colors.white, fontSize: 15)),
+          //自定义样式
+          subtitle: Text(
+            "时间:" + "2019-07-19 18:22:09",
+            style: TextStyle(color: Colors.white, fontSize: 13),
+          ),
+          //
+        ),
+      ),
+    );
+  }
+
+  /// 图片轮播效果部件
+  Widget swapPageView() {
+    return new Swiper(
+      itemBuilder: (BuildContext context, int index) {
+        return cardView();
+      },
+      itemCount: 5,
+      //自动翻页
+      autoplay: true,
+      itemWidth: MediaQuery.of(context).size.width,
+      layout: SwiperLayout.STACK,
+      // 分页指示器
+      pagination: SwiperPagination(
+          alignment: Alignment.bottomRight, // 位置 Alignment.bottomRight
+          margin: const EdgeInsets.fromLTRB(0, 0, 20, 10), // 距离调整
+          //圆点滚动
+          // 指示器构建
+          builder: DotSwiperPaginationBuilder(
+            // 字体颜色
+            color: Colors.white,
+            // 当前的指示字体颜色
+            activeColor: Colors.orange,
+            // 大小
+            size: 5,
+            // 当前的指示字体大小
+            activeSize: 8,
+            space: 1,
+          )),
+      scale: 0.95,
+      // 两张图片之间的间隔
+      viewportFraction: 0.8, // 当前视窗展示比例 小于1可见上一个和下一个视窗
+    );
+  }
+// ios风格的对话框
   void exitSystemIos() {
     showCupertinoDialog(
         context: context,
@@ -273,7 +350,7 @@ class MeListViewState extends State<MeListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      backgroundColor: Colors.grey,
+//    backgroundColor: Colors.grey,
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
           infoDialog();
@@ -284,9 +361,23 @@ class MeListViewState extends State<MeListView> {
       ),
       appBar: AppBar(
         title: Text("个人中心", style: TextStyle(fontSize: 15)),
+//        actions: <Widget>[
+//          new IconButton(
+//              icon: new Icon(Icons.menu),
+//              tooltip: 'menu',
+//              onPressed: () {
+//                final snackBar = SnackBar(
+//                  content: Text('menu'),
+//                  duration: Duration(milliseconds: 500),
+//                  backgroundColor: Colors.green,
+//                );
+//                Scaffold.of(context).showSnackBar(snackBar);
+//                // do nothing
+//              }),
+//        ],
       ),
       body: initView(),
-//      body: viewBuild(),
+//      body: swapPageView(),
     );
   }
 }

@@ -119,6 +119,14 @@ class TopicListViewState extends State<TopicListView> {
 //      backgroundColor: Colors.grey,
       appBar: AppBar(
         title: Text("地震专题", style: TextStyle(fontSize: 15)),
+        actions: <Widget>[
+          new IconButton(
+              icon: new Icon(Icons.search),
+              tooltip: 'Search',
+              onPressed: () {
+                // do nothing
+              }),
+        ],
       ),
       body: viewBuild(),
     );
