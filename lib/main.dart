@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/tabbar/bottom_navigation_bar.dart';
 import 'package:untitled/utils/const.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() => runApp(new MyApp());
 
 /* 创建一个无状态的 Widget */

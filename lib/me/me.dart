@@ -249,7 +249,7 @@ class MeListViewState extends State<MeListView> {
               style: TextStyle(color: Colors.white, fontSize: 15)),
           //自定义样式
           subtitle: Text(
-            "时间:" + "2019-07-19 18:22:09",
+            "发震时间:" + "2019-07-19 18:22:09",
             style: TextStyle(color: Colors.white, fontSize: 13),
           ),
           //
