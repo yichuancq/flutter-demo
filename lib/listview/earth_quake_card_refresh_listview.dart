@@ -2,11 +2,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
+import 'package:flutter_easyrefresh/bezier_circle_header.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/utils/http_service.dart';
 import 'earth_quake_listview.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 /// 带刷新功能带列表
 class EarthQuakeCardRefreshListView extends StatefulWidget {
@@ -224,8 +226,8 @@ class EarthQuakeCardRefreshListViewState
   }
 
   void doNavigator() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new SecNextPage();
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return SecNextPage();
     }));
   }
 
@@ -242,19 +244,17 @@ class EarthQuakeCardRefreshListViewState
     return new EasyRefresh(
       key: _easyRefreshKey,
       behavior: ScrollOverBehavior(),
-      refreshHeader: ClassicsHeader(
+      // 修改样式头部
+      refreshHeader: BezierCircleHeader(
         key: _headerKey,
-        bgColor: Colors.transparent,
-        textColor: Colors.black87,
-        moreInfoColor: Colors.black54,
-        showMore: true,
+        backgroundColor: Colors.white,
+        color: Colors.green,
       ),
-      refreshFooter: ClassicsFooter(
+      // 修改尾部样式
+      refreshFooter: BezierBounceFooter(
         key: _footerKey,
-        bgColor: Colors.transparent,
-        textColor: Colors.black87,
-        moreInfoColor: Colors.black54,
-        showMore: true,
+        backgroundColor: Colors.white,
+        color: Colors.green,
       ),
       child: initView(),
       onRefresh: () async {
