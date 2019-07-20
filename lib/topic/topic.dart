@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_easyrefresh/bezier_circle_header.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:untitled/model/dto/topic_dto_model.dart';
 import 'package:untitled/service/topic_service.dart';
 
@@ -15,6 +17,11 @@ class TopicListView extends StatefulWidget {
 class TopicListViewState extends State<TopicListView> {
   ///自定义一个数据集合
   List<Data> topicList = [];
+
+  GlobalKey<EasyRefreshState> _easyRefreshKey =
+      new GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey =
+      new GlobalKey<RefreshHeaderState>();
 
   ///
   @override
@@ -57,6 +64,7 @@ class TopicListViewState extends State<TopicListView> {
         ),
       ]),
     );
+
     /// 卡片布局
 //    return new Card(
 //      //color: Colors.grey,
@@ -69,7 +77,6 @@ class TopicListViewState extends State<TopicListView> {
 //        ],
 //      ),
 //    );
-
   }
 
   //构造数据
@@ -81,17 +88,31 @@ class TopicListViewState extends State<TopicListView> {
 
   //实现构建方法
   viewBuild() {
-    if (topicList.length == 0) {
-      //加载菊花
-      return CupertinoActivityIndicator();
-    }
-    return ListView.builder(
-        itemCount: topicList.length,
-        itemBuilder: (BuildContext context, int position) {
-          return getRowData(position);
-        });
+    return Center(
+      child: new EasyRefresh(
+        key: _easyRefreshKey,
+        refreshHeader: BezierCircleHeader(
+          key: _headerKey,
+          backgroundColor: Colors.white,
+          color: Colors.green,
+        ),
+        child: new ListView.builder(
+            //ListView的Item
+            itemCount: topicList.length,
+            itemBuilder: (BuildContext context, int position) {
+              return getRowData(position);
+            }),
+        onRefresh: () async {
+          await new Future.delayed(const Duration(seconds: 1), () {
+            setState(() {
+              //topicList.clear();
+              //topicList.addAll(topicList);
+            });
+          });
+        },
+      ),
+    );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

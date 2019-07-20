@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -26,18 +27,21 @@ class MeListViewState extends State<MeListView> {
           Expanded(
             child: Container(
                 child: new Row(
-                  children: <Widget>[
-                    new Container(
-                      //头像距离左边和右边的外边距
-                      margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: new Image.asset("assets/image/head.png",
-                          width: 60, height: 60),
-                    ),
-                    new Text("yichuan"),
-                    new EasyBadgeView().setBadgeNo("10+").setBadgeColor(Colors.green).buildBadge(),
+              children: <Widget>[
+                new Container(
+                  //头像距离左边和右边的外边距
+                  margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: new Image.asset("assets/image/head.png",
+                      width: 60, height: 60),
+                ),
+                new Text("yichuan"),
+                new EasyBadgeView()
+                    .setBadgeNo("10+")
+                    .setBadgeColor(Colors.green)
+                    .buildBadge(),
 //                    new EasyBadgeView().setBadgeNo("10+").setBadgeColor(Colors.red).build(context),
-                  ],
-                )),
+              ],
+            )),
           ),
           //RWO 2
           Expanded(
@@ -279,18 +283,10 @@ class MeListViewState extends State<MeListView> {
         backgroundColor: Colors.green,
       ),
       appBar: AppBar(
-//        leading: IconButton(
-//          //color: Colors.yellow,
-//          tooltip:'点击设置',
-//          icon: Icon(Icons.settings),
-//          onPressed: (){
-//            print("点击设置...");
-//          },
-//        ),
         title: Text("个人中心", style: TextStyle(fontSize: 15)),
-        //new Icon(Icons.border_inner),
       ),
       body: initView(),
+//      body: viewBuild(),
     );
   }
 }
