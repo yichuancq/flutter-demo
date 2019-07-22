@@ -1,4 +1,7 @@
 # flutter 地震数据展示小案例学习
+- 项目只供学习参考非商业用途 
+- developer: yichuan  email:1012027293@qq.com
+
 
 A new Flutter project.
 
@@ -31,7 +34,7 @@ samples, guidance on mobile development, and a full API reference.
 
 - 个人中心UI
 
-<img src="https://github.com/yichuancq/flutter-demo/blob/master/screenshot/me.png" width="40%" height="40%">
+<img src="https://github.com/yichuancq/flutter-demo/blob/master/screenshot/mine.png" width="40%" height="40%">
 
 ## 添加第三方插件
 
