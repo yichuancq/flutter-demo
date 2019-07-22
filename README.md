@@ -37,6 +37,7 @@ samples, guidance on mobile development, and a full API reference.
 <img src="https://github.com/yichuancq/flutter-demo/blob/master/screenshot/mine.png" width="40%" height="40%">
 
 ## 添加第三方插件
+- 官网插件english_words
 
   english_words: ^3.1.0
   
