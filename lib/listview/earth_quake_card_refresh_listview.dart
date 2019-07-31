@@ -291,6 +291,7 @@ class EarthQuakeCardRefreshListViewState
       //page bg color
       backgroundColor: Colors.grey,
       appBar: AppBar(
+        centerTitle: true,
         //title: Text("最近48小时地震信息", style: TextStyle(fontSize: 15)),
         title: Text(title, style: TextStyle(fontSize: 15)),
       ),

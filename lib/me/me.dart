@@ -61,120 +61,124 @@ class MeListViewState extends State<MeListView> {
             child: Container(
 //              //内边距
               padding: new EdgeInsets.all(10.0),
-              child: Column(
-                verticalDirection: VerticalDirection.down,
-                children: <Widget>[
-                  new Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: ListTile(
-                          title: Text("切换主题"),
-                          leading: new Icon(Icons.swap_horiz),
-                          trailing: CupertinoSwitch(
-                            activeColor: Colors.green,
-
-                            ///自定义颜色
-                            value: _switchValue,
-                            onChanged: (bool value) {
-                              setState(() {
-                                ///状态
-                                _switchValue = value;
-                                // 使用
-                              });
-                            },
-                          ),
-                          onTap: () {
-                            setState(() {
-                              _switchValue = !_switchValue;
-                            });
-                          },
-                        ),
-                      ),
-                      //Divider(height:5.0,indent:0.0,color: Colors.grey)
-                    ],
-                  ),
-
-                  new Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: ListTile(
-                          title: Text("设置"),
-                          leading: new Icon(Icons.settings),
-                          trailing: new Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            final snackBar = SnackBar(
-                              content: Text('设置'),
-                              duration: Duration(milliseconds: 500),
-                              backgroundColor: Colors.green,
-                            );
-                            Scaffold.of(context).showSnackBar(snackBar);
-                          },
-                        ),
-                      ),
-                      //Divider(height:5.0,indent:0.0,color: Colors.grey)
-                    ],
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: ListTile(
-                          title: Text("关注"),
-                          leading: new Icon(Icons.show_chart),
-                          trailing: new Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            final snackBar = SnackBar(
-                              content: Text('关注'),
-                              duration: Duration(milliseconds: 500),
-                              backgroundColor: Colors.green,
-                            );
-                            Scaffold.of(context).showSnackBar(snackBar);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  //我的关注，收藏，退出
-                  new Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: ListTile(
-                          title: Text("about"),
-                          leading: new Icon(Icons.info),
-                          trailing: new Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            final snackBar = SnackBar(
-                              content: Text('about'),
-                              duration: Duration(milliseconds: 500),
-                              backgroundColor: Colors.green,
-                            );
-                            Scaffold.of(context).showSnackBar(snackBar);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: ListTile(
-                          title: Text("退出"),
-                          leading: new Icon(Icons.directions_walk),
-                          trailing: new Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            exitSystemIos();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              child: _bottomTools(),
             ),
           ),
         ],
       ),
     );
     return container;
+  }
+  ///bottom Tools
+  Widget _bottomTools(){
+    return  Column(
+      verticalDirection: VerticalDirection.down,
+      children: <Widget>[
+        new Row(
+          children: <Widget>[
+            Expanded(
+              child: ListTile(
+                title: Text("切换主题"),
+                leading: new Icon(Icons.swap_horiz),
+                trailing: CupertinoSwitch(
+                  activeColor: Colors.green,
+
+                  ///自定义颜色
+                  value: _switchValue,
+                  onChanged: (bool value) {
+                    setState(() {
+                      ///状态
+                      _switchValue = value;
+                      // 使用
+                    });
+                  },
+                ),
+                onTap: () {
+                  setState(() {
+                    _switchValue = !_switchValue;
+                  });
+                },
+              ),
+            ),
+            //Divider(height:5.0,indent:0.0,color: Colors.grey)
+          ],
+        ),
+
+        new Row(
+          children: <Widget>[
+            Expanded(
+              child: ListTile(
+                title: Text("设置"),
+                leading: new Icon(Icons.settings),
+                trailing: new Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  final snackBar = SnackBar(
+                    content: Text('设置'),
+                    duration: Duration(milliseconds: 500),
+                    backgroundColor: Colors.green,
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            //Divider(height:5.0,indent:0.0,color: Colors.grey)
+          ],
+        ),
+        new Row(
+          children: <Widget>[
+            Expanded(
+              child: ListTile(
+                title: Text("关注"),
+                leading: new Icon(Icons.show_chart),
+                trailing: new Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  final snackBar = SnackBar(
+                    content: Text('关注'),
+                    duration: Duration(milliseconds: 500),
+                    backgroundColor: Colors.green,
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+          ],
+        ),
+        //我的关注，收藏，退出
+        new Row(
+          children: <Widget>[
+            Expanded(
+              child: ListTile(
+                title: Text("about"),
+                leading: new Icon(Icons.info),
+                trailing: new Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  final snackBar = SnackBar(
+                    content: Text('about'),
+                    duration: Duration(milliseconds: 500),
+                    backgroundColor: Colors.green,
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+          ],
+        ),
+        new Row(
+          children: <Widget>[
+            Expanded(
+              child: ListTile(
+                title: Text("退出"),
+                leading: new Icon(Icons.directions_walk),
+                trailing: new Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  exitSystemIos();
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   ///顶部工具栏
@@ -341,8 +345,11 @@ class MeListViewState extends State<MeListView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return  Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("个人中心", style: TextStyle(fontSize: 15)),
+      ),
         floatingActionButton: new FloatingActionButton(
           onPressed: () {
             infoDialog();
@@ -352,8 +359,6 @@ class MeListViewState extends State<MeListView> {
           backgroundColor: Colors.green,
         ),
         body: initView(),
-//      body: swapPageView(),
-      ),
     );
   }
 }

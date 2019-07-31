@@ -118,6 +118,7 @@ class TopicListViewState extends State<TopicListView> {
     return Scaffold(
 //      backgroundColor: Colors.grey,
       appBar: AppBar(
+        centerTitle: true,
         title: Text("地震专题", style: TextStyle(fontSize: 15)),
         actions: <Widget>[
           new IconButton(
