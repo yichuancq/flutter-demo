@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:untitled/utils/easy_badgeview.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 //个人中心界面
 class MeListView extends StatefulWidget {
@@ -37,12 +36,6 @@ class MeListViewState extends State<MeListView> {
                   child: new Image.asset("assets/image/head.png", width: 60, height: 60),
                 ),
                 new Text("yichuan"),
-                //swapPageView(),
-                new EasyBadgeView()
-                    .setBadgeNo("10+")
-                    .setBadgeColor(Colors.green)
-                    .buildBadge(),
-//                    new EasyBadgeView().setBadgeNo("10+").setBadgeColor(Colors.red).build(context),
               ],
             )),
           ),
@@ -61,7 +54,12 @@ class MeListViewState extends State<MeListView> {
             child: Container(
 //              //内边距
               padding: new EdgeInsets.all(10.0),
-              child: _bottomTools(),
+              child: ListView(
+                children: <Widget>[
+                 _bottomTools(),
+                ],
+              ),
+              //_bottomTools(),
             ),
           ),
         ],
