@@ -73,6 +73,10 @@ samples, guidance on mobile development, and a full API reference.
   
   
 ## 打包生成apk
+
+- 执行 flutter build apk
+- 拷贝apk到真机运行app
+
 yichuandeMacBook-Pro:flutter-demo yichuan$ /Users/yichuan/Documents/flutter/bin/flutter build apk
 
 You are building a fat APK that includes binaries for android-arm, android-arm64.
