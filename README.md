@@ -1,6 +1,7 @@
 # flutter 地震数据展示小案例学习
 - 项目只供学习参考非商业用途 
 - developer: yichuan  email:1012027293@qq.com
+- 本项目目前已经支持打包发布apk,且能在真机运行
 
 
 A new Flutter project.
