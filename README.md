@@ -42,32 +42,32 @@ samples, guidance on mobile development, and a full API reference.
 
   english_words: ^3.1.0
   
-- #####瀑布流插件
+- 瀑布流插件
 
   flutter_staggered_grid_view: ^0.2.7
   
-- #####本地存储插件
+- 本地存储插件
 
   shared_preferences: ^0.5.2
   
-- #####网络缓存图片
+- 网络缓存图片
 
   cached_network_image: ^1.1.0
   
-- #####屏幕尺寸工具插件
+- 屏幕尺寸工具插件
 
   flutter_screenutil: ^0.5.3
   
-- #####dio
+- dio
   dio: ^2.1.2
   
-- #####图片轮播
+- 图片轮播
 
   flutter_swiper: ^1.0.6
-- #####下拉刷新
+- 下拉刷新
   
-   flutter_easyrefresh: ^1.2.7
-- #####小图标控件
+  flutter_easyrefresh: ^1.2.7
+- 小图标控件
  
   cupertino_icons: ^0.1.2
   
