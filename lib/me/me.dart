@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:untitled/utils/easy_badgeview.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-
 //个人中心界面
 class MeListView extends StatefulWidget {
   @override
@@ -35,8 +34,7 @@ class MeListViewState extends State<MeListView> {
                 new Container(
                   //头像距离左边和右边的外边距
                   margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                  child: new Image.asset("assets/image/head.png",
-                      width: 60, height: 60),
+                  child: new Image.asset("assets/image/head.png", width: 60, height: 60),
                 ),
                 new Text("yichuan"),
                 //swapPageView(),
@@ -241,8 +239,8 @@ class MeListViewState extends State<MeListView> {
         child: ListTile(
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(4.0),
-            child: Image.asset("assets/head1.png",
-                width: 50, height: 50, fit: BoxFit.fill),
+            child: Image.asset("assets/image/notify.png",
+                width: 40, height: 40, fit: BoxFit.fill),
           ),
           //on click
           title: new Text("西藏山南市错那县",

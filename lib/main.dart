@@ -3,10 +3,11 @@ import 'package:untitled/tabbar/bottom_navigation_bar.dart';
 import 'package:untitled/utils/const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() => runApp(new MyApp());
-
+//https://www.jianshu.com/p/13e62e36614b
 /* 创建一个无状态的 Widget */
 class MyApp extends StatelessWidget {
-
+//  SliverAppBar
+  // var screenWidth = MediaQuery.of(context).size.width;
  final String TAG="MyApp";
 
   ///输入法切换的快捷键 control+space

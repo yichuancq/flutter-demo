@@ -1,18 +1,27 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+//        jcenter()
+        maven{
+            //自己创建的组，包含release和snapshot
+            url 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
+//      maven(url:{"http://maven.aliyun.com/nexus/content/groups/public"})
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.0.0'
     }
 }
 
 allprojects {
     repositories {
+        maven{
+            //自己创建的组，包含release和snapshot
+            url 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
         google()
-        jcenter()
+//        jcenter()
     }
 }
 
