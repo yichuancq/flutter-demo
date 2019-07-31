@@ -70,3 +70,32 @@ samples, guidance on mobile development, and a full API reference.
 - #####小图标控件
  
   cupertino_icons: ^0.1.2
+  
+  
+## 打包生成apk
+yichuandeMacBook-Pro:flutter-demo yichuan$ /Users/yichuan/Documents/flutter/bin/flutter build apk
+
+You are building a fat APK that includes binaries for android-arm, android-arm64.
+
+If you are deploying the app to the Play Store, it's recommended to use app bundles or split the APK to reduce the APK size.
+
+    To generate an app bundle, run:
+        flutter build appbundle --target-platform android-arm,android-arm64
+        Learn more on: https://developer.android.com/guide/app-bundle
+        
+    To split the APKs per ABI, run:
+        flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
+        Learn more on:  https://developer.android.com/studio/build/configure-apk-splits#configure-abi-split
+        
+Initializing gradle...                                              0.8s
+
+Resolving dependencies...                                           1.4s
+
+Running Gradle task 'assembleRelease'...   
+                             
+Running Gradle task 'assembleRelease'... Done                      68.6s
+
+Built build/app/outputs/apk/release/app-release.apk (11.4MB).
+
+yichuandeMacBook-Pro:flutter-demo yichuan$ 
+
