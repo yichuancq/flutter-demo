@@ -84,7 +84,8 @@ class _MapPageState<EarthQuakeInfo> extends State<MapPage>
     });
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          centerTitle: true,
+          title: Text(title, style: TextStyle(fontSize: 15)),
         ),
         body: _viewBuild());
   }
