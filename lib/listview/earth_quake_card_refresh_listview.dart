@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
 import 'package:flutter_easyrefresh/bezier_circle_header.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:untitled/map/gaode_map.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/utils/http_service.dart';
@@ -62,6 +63,15 @@ class EarthQuakeCardRefreshListViewState
       quakeInfo.depths = data.ePIDEPTH;
       quakeInfo.happenTime = data.oTIME;
       quakeInfo.happenPlace = data.lOCATIONC;
+      // //纬度
+//      print("纬度 " + data.ePILAT);
+//      print("经度 " + data.ePILON);
+      //纬度
+      quakeInfo.latitude =
+          data.ePILAT == null ? 0.00 : double.parse(data.ePILAT);
+      //经度
+      quakeInfo.longitude =
+          data.ePILON == null ? 0.00 : double.parse(data.ePILON);
       earthInfoList.add(quakeInfo);
     }
     //更新列表
@@ -217,7 +227,7 @@ class EarthQuakeCardRefreshListViewState
         //监听点击事件
         print("click item index=$position");
         //跳转到详情页面
-        doNavigator();
+        doNavigator(earthQuakeInfo);
       },
       child: new Card(
         child: row,
@@ -225,9 +235,11 @@ class EarthQuakeCardRefreshListViewState
     );
   }
 
-  void doNavigator() {
+  void doNavigator(EarthQuakeInfo earthQuakeInfo) {
+    print("选择：" + earthQuakeInfo.toString());
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return SecNextPage();
+      return MapPage(earthQuakeInfo: earthQuakeInfo);
+      // return SecNextPage();
     }));
   }
 

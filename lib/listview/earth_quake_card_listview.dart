@@ -20,6 +20,7 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
     with AutomaticKeepAliveClientMixin {
   //自定义一个数据集合
   List earthInfoList = [];
+
   @override
   bool get wantKeepAlive => true;
 
@@ -32,6 +33,16 @@ class EarthQuakeCardListViewState extends State<EarthQuakeCardListView>
       quakeInfo.depths = data.ePIDEPTH;
       quakeInfo.happenTime = data.oTIME;
       quakeInfo.happenPlace = data.lOCATIONC;
+      //"EPI_LAT": "24.22",
+      //"EPI_LON": "122.49",
+      //json['latitude'] as double,
+      //纬度
+      quakeInfo.latitude =
+      data.ePILAT == null ? 0.00 : double.parse(data.ePILAT);
+      //经度
+      quakeInfo.longitude =
+      data.ePILON == null ? 0.00 : double.parse(data.ePILON);
+
       earthInfoList.add(quakeInfo);
     }
     //更新列表
