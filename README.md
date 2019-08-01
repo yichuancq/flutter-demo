@@ -27,6 +27,9 @@ samples, guidance on mobile development, and a full API reference.
 
 <img src="https://github.com/yichuancq/flutter-demo/blob/master/screenshot/message.png" width="40%" height="40%">
 
+- 地震位置高德地图标注界面
+
+<img src="https://github.com/yichuancq/flutter-demo/blob/master/screenshot/map.png" width="40%" height="40%">
 
 - 专题界面UI
 
