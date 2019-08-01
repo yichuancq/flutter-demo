@@ -63,9 +63,6 @@ class EarthQuakeCardRefreshListViewState
       quakeInfo.depths = data.ePIDEPTH;
       quakeInfo.happenTime = data.oTIME;
       quakeInfo.happenPlace = data.lOCATIONC;
-      // //纬度
-//      print("纬度 " + data.ePILAT);
-//      print("经度 " + data.ePILON);
       //纬度
       quakeInfo.latitude =
           data.ePILAT == null ? 0.00 : double.parse(data.ePILAT);

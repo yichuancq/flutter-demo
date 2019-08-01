@@ -46,6 +46,8 @@ dependencies:
   #高德地图
 #  amap_base: ^0.3.5
   amap_base: ^0.3.5
+  #
+#  flutter_amap: ^0.0.1
   #map
 #  mapbox_gl: ^0.0.1
   #轮播滑块小部件，支持无限滚动和自定义子小部件
