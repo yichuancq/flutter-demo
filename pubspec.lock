@@ -28,7 +28,7 @@ packages:
       name: cached_network_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   charcode:
     dependency: transitive
     description:
@@ -96,7 +96,7 @@ packages:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   flutter_easyrefresh:
     dependency: "direct main"
     description:
@@ -178,7 +178,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.2"
+    version: "1.2.0"
   pedantic:
     dependency: transitive
     description:
@@ -218,7 +218,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.6+2"
+    version: "1.1.6+3"
   stack_trace:
     dependency: transitive
     description:
