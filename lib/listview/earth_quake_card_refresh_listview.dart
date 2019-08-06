@@ -52,7 +52,7 @@ class EarthQuakeCardRefreshListViewState
 
   loadJsonData() async {
     //
-    dto = await getEarthInfoPagesHttp(currentPage);
+    dto = await getEarthInfoPagesHttp(currentPage,4);
     //total Pages
     totalSize = dto.num;
     print("info " + dto.jieguo);

@@ -1,7 +1,7 @@
 ///
 const int ORDER_INDEX = 0;
 /// 默认选中的索引
-const int TYPE_INDEX = 1;
+const int TYPE_INDEX = 0;
 ///
 const int DGTYPE_INDEX = 0;
 //类别菜单
@@ -30,9 +30,9 @@ const List<Map<String, dynamic>> ORDERS = [
 const List<Map<String, dynamic>> DEGREETYPES = [
   //按震级（一年内）：6.0级以上
   {"title": "全部","id":0},
-  {"title": "6.0级以上地震","id": 1},
-  {"title": "5.0级以上地震","id": 2},
-  {"title": "4.0级以上地震","id": 3},
-  {"title": "3.0级以上地震","id": 4},
-  {"title": "3.0级以下地震","id": 5},
+  {"title": "6.0级以上地震","id": 10},
+  {"title": "5.0级以上地震","id": 9},
+  {"title": "4.0级以上地震","id": 8},
+  {"title": "3.0级以上地震","id": 5},
+  {"title": "3.0级以下地震","id": 7},
 ];
