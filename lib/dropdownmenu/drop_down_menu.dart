@@ -11,7 +11,7 @@ import 'menu_data.dart';
 ///下拉筛选
 ///
 dynamic subData;
-var parentMenuId = 0;
+var degreeType = 0;
 
 class DropDownMenu extends StatefulWidget {
   ///下拉筛选
@@ -24,9 +24,9 @@ class DropDownMenu extends StatefulWidget {
 ///下拉筛选
 class DropDownMenuState extends State<DropDownMenu>
     with AutomaticKeepAliveClientMixin {
-
   GlobalKey globalKey;
   EarthQuakeInfoDTO dto;
+
   ///
   @override
   bool get wantKeepAlive => true;
@@ -37,14 +37,13 @@ class DropDownMenuState extends State<DropDownMenu>
       onTap: onTap,
       titles: [
         TYPES[TYPE_INDEX],
-        ORDERS[ORDER_INDEX],
+        //ORDERS[ORDER_INDEX],
         DEGREETYPES[DGTYPE_INDEX]
       ],
     );
   }
 
-  DropdownMenu
-  buildDropdownMenu() {
+  DropdownMenu buildDropdownMenu() {
     return new DropdownMenu(
         maxMenuHeight: kDropdownMenuItemHeight * 10,
         menus: [
@@ -59,16 +58,15 @@ class DropDownMenuState extends State<DropDownMenu>
               },
               height: kDropdownMenuItemHeight * TYPES.length),
           //menu2
-          new DropdownMenuBuilder(
-              builder: (BuildContext context) {
-                return new DropdownListMenu(
-                  selectedIndex: ORDER_INDEX,
-                  data: ORDERS,
-                  itemBuilder: buildCheckItem,
-                );
-              },
-              height: kDropdownMenuItemHeight * ORDERS.length),
-
+//          new DropdownMenuBuilder(
+//              builder: (BuildContext context) {
+//                return new DropdownListMenu(
+//                  selectedIndex: ORDER_INDEX,
+//                  data: ORDERS,
+//                  itemBuilder: buildCheckItem,
+//                );
+//              },
+//              height: kDropdownMenuItemHeight * ORDERS.length),
           //menu3
           new DropdownMenuBuilder(
               builder: (BuildContext context) {
@@ -78,7 +76,7 @@ class DropDownMenuState extends State<DropDownMenu>
                   itemBuilder: buildCheckItem,
                 );
               },
-              height: kDropdownMenuItemHeight * ORDERS.length),
+              height: kDropdownMenuItemHeight * DEGREETYPES.length),
         ]);
   }
 
@@ -86,7 +84,7 @@ class DropDownMenuState extends State<DropDownMenu>
   Widget myController() {
     //
     var listView = new EarthQuakeCardRefreshFilterListView(
-        parentMenuId: parentMenuId, data: subData);
+        parentMenuId: degreeType, data: subData);
     listView.createState();
     //
     return new Column(
@@ -109,9 +107,7 @@ class DropDownMenuState extends State<DropDownMenu>
       //选择事件
       onSelected: ({int menuIndex, int index, int subIndex, dynamic data}) {
         setState(() {
-//          print("menuIndex=$menuIndex");
-//          print("data=$data");
-          parentMenuId = menuIndex;
+          degreeType = menuIndex;
           subData = data;
         });
       },

@@ -12,21 +12,22 @@ const List<Map<String, dynamic>> TYPES = [
   // 最近7天内地震
   // 最近30天内地震
   // 最近一年内地震
-  {"title": "最近24小时内", "id": 0},
-  {"title": "最近48小时内", "id": 1},
-  {"title": "最近7天内", "id": 2},
-  {"title": "最近30天内", "id": 3},
-  {"title": "最近一年内", "id": 4},
+  {"title": "默认","id":4},
+  {"title": "最近24小时内", "id": 1},
+  {"title": "最近48小时内", "id": 2},
+  {"title": "最近7天内", "id": 3},
+  {"title": "最近30天内", "id": 4},
+  {"title": "最近一年内", "id": 6},
 ];
-
-// 好评优先菜单
-const List<Map<String, dynamic>> ORDERS = [
-  //
-  {"title": "默认","id": 0},
-  {"title": "震级优先","id": 1},
-  {"title": "深度优先","id": 2},
-  {"title": "时间优先","id": 3},
-];
+//
+//// 震级优先
+//const List<Map<String, dynamic>> ORDERS = [
+//  //
+//  {"title": "默认","id": 0},
+//  {"title": "震级优先","id": 1},
+//  {"title": "深度优先","id": 2},
+//  {"title": "时间优先","id": 3},
+//];
 const List<Map<String, dynamic>> DEGREETYPES = [
   //按震级（一年内）：6.0级以上
   {"title": "全部","id":4},

@@ -9,7 +9,6 @@ import 'package:untitled/map/gaode_map.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/utils/http_service.dart';
-import 'earth_quake_listview.dart';
 
 /// 带刷新功能带列表
 class EarthQuakeCardRefreshListView extends StatefulWidget {
@@ -240,6 +239,7 @@ class EarthQuakeCardRefreshListViewState
     }));
   }
 
+  ///
   initView() {
     return ListView.builder(
         //item 的数量
