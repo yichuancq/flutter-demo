@@ -108,7 +108,6 @@ class DropDownMenuState extends State<DropDownMenu>
       }
     });
     return new Scaffold(
-//      backgroundColor: Colors.grey,
       appBar: AppBar(
         centerTitle: true,
         //title: Text("最近48小时地震信息", style: TextStyle(fontSize: 15)),
