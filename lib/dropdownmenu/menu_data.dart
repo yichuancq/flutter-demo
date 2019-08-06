@@ -1,12 +1,11 @@
 const int ORDER_INDEX = 0;
 
 ///
-const int TYPE_INDEX = 2;
+const int TYPE_INDEX = 0;
 
 ///
 const int DTYPE_INDEX = 0;
 
-const int FOOD_INDEX = 1;
 // 好评优先菜单
 const List<Map<String, dynamic>> ORDERS = [
   {"title": "默认"},

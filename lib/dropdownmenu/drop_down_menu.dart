@@ -6,14 +6,8 @@ import 'package:untitled/listview/earth_quake_card_refresh_filter_listview.dart'
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'menu_data.dart';
 
-//自定义一个数据集合
-//EarthQuakeInfoDTO dto=null;
 ///下拉筛选
 class DropDownMenu extends StatefulWidget {
-  //
-
-
-  //const DropDownMenu({Key key, this.dto}) : super(key: key);
 
   ///下拉筛选
   @override
@@ -24,34 +18,26 @@ class DropDownMenu extends StatefulWidget {
 
 ///下拉筛选
 class DropDownMenuState extends State<DropDownMenu>
-
-
     with AutomaticKeepAliveClientMixin {
+
   //
   GlobalKey globalKey;
 
   EarthQuakeInfoDTO dto;
-
-  //当前当索引
-  //int _currentIndex = 0;
-  //集合
-//  List FOODS = json.decode(FOOD_JSON);
-
   ///
   @override
   bool get wantKeepAlive => true;
 
   //header
   DropdownHeader buildDropdownHeader({DropdownMenuHeadTapCallback onTap}) {
-
-
+    //
     return new DropdownHeader(
       onTap: onTap,
       titles: [TYPES[TYPE_INDEX], ORDERS[ORDER_INDEX],DEGREETYPES[DTYPE_INDEX]],
 
     );
   }
-
+  //
   DropdownMenu buildDropdownMenu() {
     return new DropdownMenu(maxMenuHeight: kDropdownMenuItemHeight * 10,
         //  activeIndex: activeIndex,
