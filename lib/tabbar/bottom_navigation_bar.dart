@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/dropdownmenu/drop_down_menu.dart';
 import 'package:untitled/listview/earth_quake_card_listview.dart';
 import 'package:untitled/listview/earth_quake_card_refresh_listview.dart';
 import 'package:untitled/me/me.dart';
@@ -17,10 +18,7 @@ class MyDemoState extends State<MyDemo> {
 
   buildBodyPage() {
     if (index == 0) {
-      //return new TabBarDemo();
-      //EarthQuakeCardRefreshListView
-      //EarthQuakeCardListView
-      return new EarthQuakeCardRefreshListView();
+      return new DropDownMenu();
     }
     if (index == 1) {
       return new TopicListView();
