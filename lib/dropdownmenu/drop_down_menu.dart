@@ -42,6 +42,7 @@ class DropDownMenuState extends State<DropDownMenu>
     return new DropdownMenu(maxMenuHeight: kDropdownMenuItemHeight * 10,
         //  activeIndex: activeIndex,
         menus: [
+          //menu1
           new DropdownMenuBuilder(
               builder: (BuildContext context) {
                 return new DropdownListMenu(
@@ -51,6 +52,7 @@ class DropDownMenuState extends State<DropDownMenu>
                 );
               },
               height: kDropdownMenuItemHeight * TYPES.length),
+          //menu2
           new DropdownMenuBuilder(
               builder: (BuildContext context) {
                 return new DropdownListMenu(
@@ -61,7 +63,7 @@ class DropDownMenuState extends State<DropDownMenu>
               },
               height: kDropdownMenuItemHeight * ORDERS.length),
 
-
+          //menu3
           new DropdownMenuBuilder(
               builder: (BuildContext context) {
                 return new DropdownListMenu(
@@ -74,22 +76,23 @@ class DropDownMenuState extends State<DropDownMenu>
         ]);
   }
 
+  ///构建菜单
   Widget buildFixHeaderDropdownMenu() {
     return new DefaultDropdownMenuController(
         child: new Column(
-      children: <Widget>[
-        buildDropdownHeader(),
-        new Expanded(
-            child: new Stack(
-             children: <Widget>[
-            //EarthQuakeCardRefreshListView
-            new EarthQuakeCardRefreshFilterListView(),
-            buildDropdownMenu()
+          children: <Widget>[
+            buildDropdownHeader(),
+            new Expanded(
+                child: new Stack(
+                  children: <Widget>[
+                    //EarthQuakeCardRefreshListView
+                    new EarthQuakeCardRefreshFilterListView(),
+                    buildDropdownMenu()
+                  ],
+                )
+            )
           ],
-        )
-        )
-      ],
-    ));
+        ));
   }
 
   @override

@@ -23,9 +23,13 @@ samples, guidance on mobile development, and a full API reference.
 
 - URL：https://github.com/yichuancq/flutter-demo/blob/master/screenshot
 
-- 地震消息UI
+- 地震消息v1.0 UI
 
 <img src="https://github.com/yichuancq/flutter-demo/blob/master/screenshot/message.png" width="40%" height="40%">
+
+- 地震消息v1.1带下拉筛选菜单效果 UI
+
+<img src="https://github.com/yichuancq/flutter-demo/blob/master/screenshot/message_menu.png" width="40%" height="40%">
 
 - 地震位置高德地图标注界面
 
@@ -73,6 +77,13 @@ samples, guidance on mobile development, and a full API reference.
 - 小图标控件
  
   cupertino_icons: ^0.1.2
+  
+- amap_base
+  
+  amap_base: ^0.3.5
+  
+- 下拉筛选的菜单
+  dropdown_menu: ^1.1.0
   
   
 ## 打包生成apk
