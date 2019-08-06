@@ -15,14 +15,13 @@ int parentMId = 0;
 //子类别 default
 Map<String, dynamic> subData;
 int degreeType = 0;
+int currentPage = 0; //第一页
 /// 带刷新功能带列表
 class EarthQuakeCardRefreshFilterListView extends StatefulWidget {
   //父菜单的Id
   final int parentMenuId;
-
   //子类别
   final dynamic data;
-
   //
   EarthQuakeCardRefreshFilterListView({Key key, this.parentMenuId, this.data})
       : super(key: key);
@@ -44,6 +43,7 @@ class EarthQuakeCardRefreshFilterListView extends StatefulWidget {
     if (parentMenuId != null && data != null) {
       parentMId = parentMenuId;
       subData = data;
+//      currentPage=0;
     }
     setDegreeParams();
 
@@ -62,7 +62,7 @@ class _EarthQuakeCardRefreshListViewState
   //自定义一个数据集合
   EarthQuakeInfoDTO dto;
   List earthInfoList = [];
-  int currentPage = 0; //第一页
+//  int currentPage = 0; //第一页
   int pageSize = 10; //页容量
   int totalSize = 0; //总条数
   bool isLoading = false; //是否正在加载数据
@@ -124,6 +124,23 @@ class _EarthQuakeCardRefreshListViewState
       //状态
     });
   }
+  //异步加载网络数据
+  void loadMoreData() async {
+    try {
+      print("currentPage :${currentPage}");
+      print("totalSize :${totalSize}");
+      if (currentPage > totalSize) {
+        print("超过总页数...");
+        currentPage = totalSize - 1;
+      }
+      currentPage++;
+      print("currentPage :${currentPage}");
+      // var count = (currentPage - 1) * pageSize;
+      loadJsonData();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   //异步加载网络数据
   void loadLessData() async {
@@ -134,7 +151,7 @@ class _EarthQuakeCardRefreshListViewState
         print("第一页");
         currentPage = 2;
       }
-      this.currentPage--;
+      currentPage--;
       print("currentPage :${currentPage}");
       //var count = (currentPage - 1) * pageSize;
       loadJsonData();
@@ -144,23 +161,7 @@ class _EarthQuakeCardRefreshListViewState
     }
   }
 
-  //异步加载网络数据
-  void loadMoreData() async {
-    try {
-      print("currentPage :${currentPage}");
-      print("totalSize :${totalSize}");
-      if (currentPage > totalSize) {
-        print("超过总页数...");
-        currentPage = totalSize - 1;
-      }
-      this.currentPage++;
-      print("currentPage :${currentPage}");
-      // var count = (currentPage - 1) * pageSize;
-      loadJsonData();
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+
 
   @override
   void dispose() {
