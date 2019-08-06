@@ -88,7 +88,7 @@ class DropDownMenuState extends State<DropDownMenu>
     var listView = new EarthQuakeCardRefreshFilterListView(
         parentMenuId: parentMenuId, data: subData);
     listView.createState();
-
+    //
     return new Column(
       children: <Widget>[
         buildDropdownHeader(),
@@ -109,8 +109,8 @@ class DropDownMenuState extends State<DropDownMenu>
       //选择事件
       onSelected: ({int menuIndex, int index, int subIndex, dynamic data}) {
         setState(() {
-          print("menuIndex=$menuIndex");
-          print("data=$data");
+//          print("menuIndex=$menuIndex");
+//          print("data=$data");
           parentMenuId = menuIndex;
           subData = data;
         });
@@ -130,14 +130,17 @@ class DropDownMenuState extends State<DropDownMenu>
     String title = "地震信息";
     //更新列表
     setState(() {
-      print("_parentMenuId1=$parentMenuId");
-      print("_subData1=$subData");
+//      print("_parentMenuId1=$parentMenuId");
+//      print("_subData1=$subData");
       //title="";
+      //状态
+      if (subData != null && subData['title'] != null) {
+        title = subData['title'];
+      }
     });
     return new Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        //title: Text("最近48小时地震信息", style: TextStyle(fontSize: 15)),
         title: Text(title, style: TextStyle(fontSize: 15)),
       ),
       body: buildFixHeaderDropdownMenu(),

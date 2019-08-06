@@ -1,6 +1,4 @@
 //地震消息listView
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -26,35 +24,26 @@ class EarthQuakeCardRefreshFilterListView extends StatefulWidget {
   //子类别
   final dynamic data;
 
-  //
   EarthQuakeCardRefreshFilterListView({Key key, this.parentMenuId, this.data}) : super(key: key);
-
   //
-  void show() {
-    //
-    print("EarthQuakeCardRefreshFilterListView->parentMId -->:${parentMId}");
-    print("EarthQuakeCardRefreshFilterListView->subData-->:" +
-        subData.toString());
-    if (data!=null && data['id'] != null) {
-      bool b1 = subData.containsKey("title");
-      print("has key: $b1");
+  void setDegreeParams() {
+    if (data != null && data['id'] != null) {
       degreeType = int.parse("${data['id']}");
+    } else {
+      degreeType = 4;
     }
     print("degreeType:$degreeType");
-//    for (var key in data.keys) {
-//      print("---${key} : ${data[key]}");
-//
-//    }
   }
 
   @override
   State<StatefulWidget> createState() {
+    var _earthQuakeCardRefreshListViewState = _EarthQuakeCardRefreshListViewState();
     if (parentMenuId != null && data != null) {
       parentMId = parentMenuId;
       subData = data;
     }
-    show();
-    return new _EarthQuakeCardRefreshListViewState();
+    setDegreeParams();
+    return _earthQuakeCardRefreshListViewState;
   }
 }
 
@@ -78,15 +67,15 @@ class _EarthQuakeCardRefreshListViewState
   GlobalKey<RefreshFooterState> _footerKey =
       new GlobalKey<RefreshFooterState>();
 
-//页面保持状态，使他不销毁不重绘。
   @override
   bool get wantKeepAlive => true;
-
-
+  //
   @override
   void initState() {
     //加载第一页数据
-    earthInfoList.clear();
+    if (earthInfoList != null) {
+      earthInfoList.clear();
+    }
     loadMoreData();
     super.initState();
   }
@@ -98,6 +87,7 @@ class _EarthQuakeCardRefreshListViewState
       new TextStyle(color: const Color(0xFF757575), fontSize: 14.0);
 
   loadJsonData() async {
+
     //设置显示的类别
     dto = await getEarthInfoPagesHttp(currentPage, degreeType);
     //total Pages
@@ -309,7 +299,8 @@ class _EarthQuakeCardRefreshListViewState
       ),
       child: initView(),
       // 显示列表
-      onRefresh: () async {
+      onRefresh: ()
+      async {
         await new Future.delayed(const Duration(seconds: 1), () {
           setState(() {
             earthInfoList.clear();
@@ -331,24 +322,14 @@ class _EarthQuakeCardRefreshListViewState
 
   @override
   Widget build(BuildContext context) {
-//    String title = "地震信息";
     //更新列表
     setState(() {
-      print("menuIndex=$parentMId");
-      print("data=$subData");
-      print("degreeType=$degreeType");
-      //状态
-//      if (dto != null && dto.jieguo != null) {
-//         title = dto.jieguo;
-//      }
+//      print("menuIndex=$parentMId");
+//      print("data=$subData");
+//      print("degreeType=$degreeType");
     });
     return Scaffold(
       backgroundColor: Colors.grey,
-//      appBar: AppBar(
-//        centerTitle: true,
-//        //title: Text("最近48小时地震信息", style: TextStyle(fontSize: 15)),
-//        title: Text(title, style: TextStyle(fontSize: 15)),
-//      ),
       body: Center(
         //条目
         child: viewBuild(),

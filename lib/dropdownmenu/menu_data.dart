@@ -29,7 +29,7 @@ const List<Map<String, dynamic>> ORDERS = [
 ];
 const List<Map<String, dynamic>> DEGREETYPES = [
   //按震级（一年内）：6.0级以上
-  {"title": "全部","id":0},
+  {"title": "全部","id":4},
   {"title": "6.0级以上地震","id": 10},
   {"title": "5.0级以上地震","id": 9},
   {"title": "4.0级以上地震","id": 8},
