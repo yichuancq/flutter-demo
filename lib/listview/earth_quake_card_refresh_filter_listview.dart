@@ -9,14 +9,32 @@ import 'package:untitled/map/gaode_map.dart';
 import 'package:untitled/model/dto/earth_quake_dto_model.dart';
 import 'package:untitled/model/earth_quake_model.dart';
 import 'package:untitled/utils/http_service.dart';
-import 'earth_quake_listview.dart';
-
+//default
+int parentMId;
+//子类别 default
+Map<String, dynamic> subData;
 /// 带刷新功能带列表
 class EarthQuakeCardRefreshFilterListView extends StatefulWidget {
+  //父菜单的Id
+  final int parentMenuId;
+  //子类别
+  final dynamic data;
   //
+  EarthQuakeCardRefreshFilterListView({Key key,this.parentMenuId, this.data}): super(key: key);
+  //
+  void show(){
+    //
+    print("EarthQuakeCardRefreshFilterListView->parentMId -->:${parentMId}");
+    print("EarthQuakeCardRefreshFilterListView->subData-->:"+subData.toString());
+  }
+
   @override
   State<StatefulWidget> createState() {
-    //
+    if(parentMenuId!=null && data!=null) {
+      parentMId = parentMenuId;
+      subData = data;
+    }
+    show();
     return new _EarthQuakeCardRefreshListViewState();
   }
 }
@@ -41,8 +59,19 @@ class _EarthQuakeCardRefreshListViewState
   GlobalKey<RefreshFooterState> _footerKey =
       new GlobalKey<RefreshFooterState>();
 
+//  @override
+//  bool get wantKeepAlive => false;
+//页面保持状态，使他不销毁不重绘。
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    //加载第一页数据
+    earthInfoList.clear();
+    loadMoreData();
+    super.initState();
+  }
 
   ///加载更多
   TextStyle loadMoreTextStyle =
@@ -55,8 +84,10 @@ class _EarthQuakeCardRefreshListViewState
     dto = await getEarthInfoPagesHttp(currentPage);
     //total Pages
     totalSize = dto.num;
+
     print("info " + dto.jieguo);
     print("totalPage :${totalSize}");
+
     for (Shuju data in dto.shuju) {
       EarthQuakeInfo quakeInfo = new EarthQuakeInfo();
       quakeInfo.degree = double.parse(data.m);
@@ -80,6 +111,7 @@ class _EarthQuakeCardRefreshListViewState
   //异步加载网络数据
   void loadLessData() async {
     try {
+      //
       if (currentPage <= 1) {
         print("page index<=1...");
         print("第一页");
@@ -119,22 +151,15 @@ class _EarthQuakeCardRefreshListViewState
     super.dispose();
   }
 
-  @override
-  void initState() {
-    //加载第一页数据
-    earthInfoList.clear();
-    loadMoreData();
-    super.initState();
-  }
 
   //根据强度自定义颜色
   Widget myDegreeText(final double degree) {
     if (degree >= 6.0) {
       //double -> String
-      return new Text(degree.toStringAsFixed(1),
+      return  Text(degree.toStringAsFixed(1),
           style: TextStyle(color: Colors.red, fontSize: 15));
     }
-    return new Text(degree.toStringAsFixed(1), style: TextStyle(fontSize: 15));
+    return Text(degree.toStringAsFixed(1), style: TextStyle(fontSize: 15));
   }
 
   buildRows(final int position) {
@@ -157,7 +182,6 @@ class _EarthQuakeCardRefreshListViewState
             flex: 10,
             child: Container(
                 margin: EdgeInsets.only(left: 4.0, right: 4.0),
-//            color: Colors.red,
                 height: 85.0,
                 child: Column(
 //                  // 从左到右
@@ -239,7 +263,7 @@ class _EarthQuakeCardRefreshListViewState
       // return SecNextPage();
     }));
   }
-
+  ///显示列表
   initView() {
     return ListView.builder(
         //item 的数量
@@ -265,7 +289,7 @@ class _EarthQuakeCardRefreshListViewState
         backgroundColor: Colors.white,
         color: Colors.green,
       ),
-      child: initView(),
+      child: initView(),// 显示列表
       onRefresh: () async {
         await new Future.delayed(const Duration(seconds: 1), () {
           setState(() {

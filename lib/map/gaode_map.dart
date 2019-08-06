@@ -7,8 +7,11 @@ EarthQuakeInfo globalInfo;
 
 ///地图页面
 class MapPage extends StatefulWidget {
-  MapPage({Key key, this.earthQuakeInfo}) : super(key: key);
   final EarthQuakeInfo earthQuakeInfo;
+
+
+  MapPage({Key key, this.earthQuakeInfo}) : super(key: key);
+
 
   @override
   _MapPageState createState() {
